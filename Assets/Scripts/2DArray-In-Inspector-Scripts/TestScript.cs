@@ -3,5 +3,5 @@ using System.Collections;
 
 public class TestScript : MonoBehaviour {
 
-	public ArrayLayout data;
+	public Bool5x5 data;
 }

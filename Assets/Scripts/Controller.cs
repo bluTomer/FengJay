@@ -14,6 +14,7 @@ namespace Scripts
         public LayerMask RaycastHitMask;
         public ControlMode CurrentMode;
         public Item ItemPrefab;
+        public Room Room;
 
         private Item itemBeingPlaced;
         
@@ -51,10 +52,13 @@ namespace Scripts
             itemBeingPlaced.Show();
 
             var position = raycast.hit.rigidbody.GetComponent<RoomPosition>();
-
             if (position != null)
             {
-                TryPlacingAtPosition(position);
+                var placeSuccess = TryPlacingAtPosition(position);
+                if (!placeSuccess)
+                {
+                    PlaceItemAtPoint(raycast.hit.point);
+                }
             }
             
             var room = raycast.hit.rigidbody.GetComponent<Room>();
@@ -64,18 +68,26 @@ namespace Scripts
             }
         }
 
-        private void TryPlacingAtPosition(RoomPosition position)
+        private bool TryPlacingAtPosition(RoomPosition position)
         {
+            for (int x = 0; x < Item.MAX_SIZE; x++)
+            {
+                for (int y = 0; y < Item.MAX_SIZE; y++)
+                {
+                    if (itemBeingPlaced.ExistsInPos(x, y))
+                    {
+                        if (!Room.CanPlaceAtPosition(position.Position.x + x, position.Position.y + y))
+                        {
+                            // Position not available
+                            itemBeingPlaced.SetPlacingType(Item.PlacingType.NotAvailable);
+                            return false;
+                        }
+                    }
+                }
+            }
+            
             // Object can be placed
             itemBeingPlaced.SetPosition(position);
-            
-            if (position.IsTaken)
-            {
-                // Position already taken
-                // TODO: Check all other positions according to object size
-                itemBeingPlaced.SetPlacingType(Item.PlacingType.NotAvailable);
-                return;
-            }
             
             itemBeingPlaced.SetPlacingType(Item.PlacingType.Available);
 
@@ -86,6 +98,8 @@ namespace Scripts
                 itemBeingPlaced.SetPlacingType(Item.PlacingType.None);
                 CurrentMode = ControlMode.None;
             }
+
+            return true;
         }
 
         private void PlaceItemAtPoint(Vector3 point)

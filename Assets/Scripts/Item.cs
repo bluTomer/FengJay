@@ -5,6 +5,8 @@ namespace Scripts
 {
     public class Item : MonoBehaviour
     {
+        public const int MAX_SIZE = 5;
+        
         public enum PlacingType
         {
             None,
@@ -12,22 +14,45 @@ namespace Scripts
             Available
         }
         
-        [Header("Properties")]
-        public Vector2Int Size;
-        public Orientation Orientation;
-        
-        [SerializeField] private Renderer renderer;
         [SerializeField] private Transform pivot;
-        
-        public Color UnavailablePlacingColor;
-        public Color AvailablePlacingColor;
+        [SerializeField] private Renderer renderer;
+        [SerializeField] private Color unavailablePlacingColor;
+        [SerializeField] private Color availablePlacingColor;
+        [SerializeField] private Orientation orientation;
+        [SerializeField] private Bool5x5 size;
 
         private Color originalColor;
         private bool showing = true;
+        private bool[,] sizeTable;
 
         private void Awake()
         {
             originalColor = renderer.material.color;
+            sizeTable = new bool[MAX_SIZE, MAX_SIZE];
+            for (int x = 0; x < MAX_SIZE; x++)
+            {
+                var currentRow = size.Rows[x];
+                
+                for (int y = 0; y < MAX_SIZE; y++)
+                {
+                    sizeTable[x, y] = currentRow.Row[y];
+                }
+            }
+        }
+
+        public bool ExistsInPos(int x, int y)
+        {
+            if (x < 0 || x >= MAX_SIZE)
+            {
+                return false;
+            }
+
+            if (y < 0 || y >= MAX_SIZE)
+            {
+                return false;
+            }
+
+            return sizeTable[x, y];
         }
 
         public void Show()
@@ -61,10 +86,10 @@ namespace Scripts
                     renderer.material.color = originalColor;
                     break;
                 case PlacingType.NotAvailable:
-                    renderer.material.color = UnavailablePlacingColor;
+                    renderer.material.color = unavailablePlacingColor;
                     break;
                 case PlacingType.Available:
-                    renderer.material.color = AvailablePlacingColor;
+                    renderer.material.color = availablePlacingColor;
                     break;
                 default:
                     throw new ArgumentOutOfRangeException("type", type, null);

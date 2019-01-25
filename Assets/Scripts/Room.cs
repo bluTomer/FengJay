@@ -13,6 +13,11 @@ namespace Scripts
 
         private Transform positionParent;
 
+        private void Awake()
+        {
+            SetupNewRoom();
+        }
+
         [ContextMenu("Setup")]
         public void SetupNewRoom()
         {
@@ -38,6 +43,23 @@ namespace Scripts
                     Positions[x, y] = position;
                 }
             }
+        }
+
+        public bool CanPlaceAtPosition(int x, int y)
+        {
+            if (x < 0 || x >= Size.x)
+            {
+                return false;
+            }
+
+            if (y < 0 || y >= Size.y)
+            {
+                return false;
+            }
+
+            var position = Positions[x, y];
+            
+            return !position.IsTaken;
         }
     }
 }

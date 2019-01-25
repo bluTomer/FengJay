@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
 using UnityEditor;
 
-[CustomPropertyDrawer(typeof(ArrayLayout))]
-public class CustPropertyDrawer : PropertyDrawer
+[CustomPropertyDrawer(typeof(Bool5x5))]
+public class Bool5x5PropertyDrawer : PropertyDrawer
 {
 	public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
 	{
@@ -10,9 +10,7 @@ public class CustPropertyDrawer : PropertyDrawer
 		Rect newposition = position;
 		newposition.y += 18f;
 
-		var sizeProp = property.FindPropertyRelative("Size");
-		int size = sizeProp.intValue;
-		Debug.Log("Size: " + size);
+		int size = property.FindPropertyRelative("Size").intValue;
 		SerializedProperty data = property.FindPropertyRelative("Rows");
 		
 		for (int j = 0; j < size; j++)
@@ -22,7 +20,7 @@ public class CustPropertyDrawer : PropertyDrawer
 			if (row.arraySize != size)
 				row.arraySize = size;
 			
-			newposition.width = position.width / size;
+			newposition.width = 18f;
 			
 			for (int i = 0; i < size; i++)
 			{
@@ -37,6 +35,7 @@ public class CustPropertyDrawer : PropertyDrawer
 
 	public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
 	{
-		return 18f * 8;
+		int size = property.FindPropertyRelative("Size").intValue;
+		return 18f * (size + 1);
 	}
 }
