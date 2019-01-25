@@ -9,19 +9,19 @@ public class Room : MonoBehaviour
     public Vector2 Resolution;
     public RoomPosition[,] Positions;
 
-    private Transform parent;
+    private Transform positionParent;
 
     [ContextMenu("Setup")]
     public void SetupNewRoom()
     {
-        if (parent != null)
+        if (positionParent != null)
         {
-            Destroy(parent.gameObject);
+            Destroy(positionParent.gameObject);
         }
 
-        parent = new GameObject("Positions").transform;
-        parent.SetParent(transform);
-        parent.localPosition = Vector3.zero;
+        positionParent = new GameObject("Positions").transform;
+        positionParent.SetParent(transform);
+        positionParent.localPosition = Vector3.zero;
         
         Positions = new RoomPosition[Size.x, Size.y];
 
@@ -29,10 +29,10 @@ public class Room : MonoBehaviour
         {
             for (int y = 0; y < Size.y; y++)
             {
-                var position = Instantiate(PositionPrefab, transform);
+                var position = Instantiate(PositionPrefab, positionParent);
                 position.Position = new Vector2Int(x, y);
                 
-                position.transform.position = new Vector3(x * Resolution.x, y * Resolution.y, transform.position.z);
+                position.transform.position = new Vector3(x * Resolution.x, transform.position.y, y * Resolution.y);
                 Positions[x, y] = position;
             }
         }
