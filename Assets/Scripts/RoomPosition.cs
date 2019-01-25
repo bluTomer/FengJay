@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Scripts.Items;
+using UnityEngine;
 
 namespace Scripts
 {

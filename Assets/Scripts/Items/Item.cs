@@ -1,17 +1,28 @@
 ﻿using System;
+using DefaultNamespace;
 using UnityEngine;
 
-namespace Scripts
+namespace Scripts.Items
 {
     public class Item : MonoBehaviour
     {
         public const int MAX_SIZE = 5;
         
-        public enum PlacingType
+        public enum PlacingStatus
         {
             None,
-            NotAvailable,
+            UnAvailable,
             Available
+        }
+        
+        public Orientation Orientation
+        {
+            get { return orientation; }
+        }
+
+        public ItemType Type
+        {
+            get { return type; }
         }
         
         [SerializeField] private Transform pivot;
@@ -20,6 +31,7 @@ namespace Scripts
         [SerializeField] private Color availablePlacingColor;
         [SerializeField] private Orientation orientation;
         [SerializeField] private Bool5x5 size;
+        [SerializeField] private ItemType type;
 
         private Color originalColor;
         private bool showing = true;
@@ -110,21 +122,21 @@ namespace Scripts
             transform.position = position.transform.position;
         }
 
-        public void SetPlacingType(PlacingType type)
+        public void SetPlacingStatus(PlacingStatus status)
         {
-            switch (type)
+            switch (status)
             {
-                case PlacingType.None:
+                case PlacingStatus.None:
                     renderer.material.color = originalColor;
                     break;
-                case PlacingType.NotAvailable:
+                case PlacingStatus.UnAvailable:
                     renderer.material.color = unavailablePlacingColor;
                     break;
-                case PlacingType.Available:
+                case PlacingStatus.Available:
                     renderer.material.color = availablePlacingColor;
                     break;
                 default:
-                    throw new ArgumentOutOfRangeException("type", type, null);
+                    throw new ArgumentOutOfRangeException("status", status, null);
             }
         }
     }

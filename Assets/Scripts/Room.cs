@@ -1,5 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using DefaultNamespace;
+using Scripts.Items;
 using UnityEngine;
 
 namespace Scripts
@@ -43,6 +45,29 @@ namespace Scripts
                     Positions[x, y] = position;
                 }
             }
+        }
+
+        public Item GetItemInRoom(ItemType type)
+        {
+            for (int x = 0; x < Size.x; x++)
+            {
+                for (int y = 0; y < Size.y; y++)
+                {
+                    var position = Positions[x, y];
+
+                    if (!position.IsTaken)
+                        continue; // Empty position
+                    
+                    var item = position.Item;
+
+                    if (item.Type == type)
+                    {
+                        return item;
+                    }
+                }
+            }
+
+            return null;
         }
 
         public RoomPosition GetPositionAt(int x, int y)

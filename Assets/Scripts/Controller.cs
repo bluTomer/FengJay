@@ -1,3 +1,4 @@
+using Scripts.Items;
 using UnityEngine;
 
 namespace Scripts
@@ -102,7 +103,7 @@ namespace Scripts
                         if (!Room.CanPlaceAtPosition(position.Position.x + rotatedPos.x, position.Position.y + rotatedPos.y))
                         {
                             // Position not available
-                            itemBeingPlaced.SetPlacingType(Item.PlacingType.NotAvailable);
+                            itemBeingPlaced.SetPlacingStatus(Item.PlacingStatus.UnAvailable);
                             return false;
                         }
                     }
@@ -112,7 +113,7 @@ namespace Scripts
             // Object can be placed
             itemBeingPlaced.SetPosition(position);
             
-            itemBeingPlaced.SetPlacingType(Item.PlacingType.Available);
+            itemBeingPlaced.SetPlacingStatus(Item.PlacingStatus.Available);
 
             if (Input.GetMouseButtonDown(0))
             {
@@ -130,7 +131,7 @@ namespace Scripts
                     }
                 }
                 
-                itemBeingPlaced.SetPlacingType(Item.PlacingType.None);
+                itemBeingPlaced.SetPlacingStatus(Item.PlacingStatus.None);
                 CurrentMode = ControlMode.None;
             }
 
@@ -140,7 +141,7 @@ namespace Scripts
         private void PlaceItemAtPoint(Vector3 point)
         {
             itemBeingPlaced.transform.position = point;
-            itemBeingPlaced.SetPlacingType(Item.PlacingType.NotAvailable);
+            itemBeingPlaced.SetPlacingStatus(Item.PlacingStatus.UnAvailable);
         }
         
         private Hit PointerRaycast()

@@ -1,4 +1,4 @@
-namespace Scripts
+namespace Scripts.Items
 {
     public enum Orientation
     {
