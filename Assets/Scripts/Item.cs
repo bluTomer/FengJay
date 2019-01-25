@@ -55,6 +55,38 @@ namespace Scripts
             return sizeTable[x, y];
         }
 
+        public void RotateRight()
+        {
+            var newOrientation = ((int) orientation + 1) % 4;
+            orientation = (Orientation) newOrientation;
+
+            pivot.Rotate(Vector3.up, 90.0f, Space.Self);
+        }
+
+        public void RotateLeft()
+        {
+            RotateRight();
+            RotateRight();
+            RotateRight();
+        }
+
+        public Vector2Int GetRotatedPoint(Vector2Int point)
+        {
+            Vector2Int rotatedPoint = point;
+            int totalRotations = (int) orientation;
+            
+            for (int i = 0; i < totalRotations; i++)
+            {
+                var tempX = rotatedPoint.x;
+                rotatedPoint.x = rotatedPoint.y;
+                rotatedPoint.y = tempX;
+
+                rotatedPoint.y = rotatedPoint.y * -1;
+            }
+
+            return rotatedPoint;
+        }
+
         public void Show()
         {
             if (!showing)

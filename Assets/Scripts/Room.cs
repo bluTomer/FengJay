@@ -45,6 +45,21 @@ namespace Scripts
             }
         }
 
+        public RoomPosition GetPositionAt(int x, int y)
+        {
+            if (x < 0 || x >= Size.x)
+            {
+                return null;
+            }
+
+            if (y < 0 || y >= Size.y)
+            {
+                return null;
+            }
+
+            return Positions[x, y];
+        }
+
         public bool CanPlaceAtPosition(int x, int y)
         {
             if (x < 0 || x >= Size.x)

@@ -20,6 +20,12 @@ namespace Scripts
         
         private void Update()
         {
+            CheckModes();
+            CheckRotate();
+        }
+
+        private void CheckModes()
+        {
             if (CurrentMode == ControlMode.None && Input.GetKeyDown(KeyCode.P))
             {
                 itemBeingPlaced = CreateItem();
@@ -39,6 +45,21 @@ namespace Scripts
             }
         }
 
+        private void CheckRotate()
+        {
+            if (CurrentMode == ControlMode.None)
+                return;
+            
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                itemBeingPlaced.RotateRight();
+            }
+            if (Input.GetKeyDown(KeyCode.Q))
+            {
+                itemBeingPlaced.RotateLeft();
+            }
+        }
+
         private void TryPlacingObject()
         {
             var raycast = PointerRaycast();
@@ -50,7 +71,7 @@ namespace Scripts
             }
             
             itemBeingPlaced.Show();
-
+            
             var position = raycast.hit.rigidbody.GetComponent<RoomPosition>();
             if (position != null)
             {
@@ -76,7 +97,9 @@ namespace Scripts
                 {
                     if (itemBeingPlaced.ExistsInPos(x, y))
                     {
-                        if (!Room.CanPlaceAtPosition(position.Position.x + x, position.Position.y + y))
+                        var rotatedPos = itemBeingPlaced.GetRotatedPoint(new Vector2Int(x, y));
+                        
+                        if (!Room.CanPlaceAtPosition(position.Position.x + rotatedPos.x, position.Position.y + rotatedPos.y))
                         {
                             // Position not available
                             itemBeingPlaced.SetPlacingType(Item.PlacingType.NotAvailable);
@@ -94,7 +117,19 @@ namespace Scripts
             if (Input.GetMouseButtonDown(0))
             {
                 // Place item
-                position.Item = itemBeingPlaced;
+                for (int x = 0; x < Item.MAX_SIZE; x++)
+                {
+                    for (int y = 0; y < Item.MAX_SIZE; y++)
+                    {
+                        if (itemBeingPlaced.ExistsInPos(x, y))
+                        {
+                            var rotatedPos = itemBeingPlaced.GetRotatedPoint(new Vector2Int(x, y));
+                            var objectPosition = Room.GetPositionAt(position.Position.x + rotatedPos.x, position.Position.y + rotatedPos.y);
+                            objectPosition.Item = itemBeingPlaced;
+                        }
+                    }
+                }
+                
                 itemBeingPlaced.SetPlacingType(Item.PlacingType.None);
                 CurrentMode = ControlMode.None;
             }
