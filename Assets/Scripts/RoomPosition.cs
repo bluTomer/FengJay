@@ -1,16 +1,22 @@
 ﻿using UnityEngine;
 
-public class RoomPosition : MonoBehaviour
+namespace Scripts
 {
-	public GameObject BaseModel;
-	public Vector2Int Position;
-	public Item Item;
-
-	public bool IsTaken { get { return Item != null; }}
-
-	public void SetItem(Item item)
+	public class RoomPosition : MonoBehaviour
 	{
-		Item = item;
+		public GameObject BaseModel;
+		public Vector2Int Position;
+		public Item Item;
+
+		public bool IsTaken
+		{
+			get { return Item != null; }
+		}
+
+		public void SetItem(Item item)
+		{
+			Item = item;
+		}
+
 	}
-	
 }

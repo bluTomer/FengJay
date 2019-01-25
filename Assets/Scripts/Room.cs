@@ -2,38 +2,41 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Room : MonoBehaviour
+namespace Scripts
 {
-    public RoomPosition PositionPrefab;
-    public Vector2Int Size;
-    public Vector2 Resolution;
-    public RoomPosition[,] Positions;
-
-    private Transform positionParent;
-
-    [ContextMenu("Setup")]
-    public void SetupNewRoom()
+    public class Room : MonoBehaviour
     {
-        if (positionParent != null)
-        {
-            Destroy(positionParent.gameObject);
-        }
+        public RoomPosition PositionPrefab;
+        public Vector2Int Size;
+        public Vector2 Resolution;
+        public RoomPosition[,] Positions;
 
-        positionParent = new GameObject("Positions").transform;
-        positionParent.SetParent(transform);
-        positionParent.localPosition = Vector3.zero;
-        
-        Positions = new RoomPosition[Size.x, Size.y];
+        private Transform positionParent;
 
-        for (int x = 0; x < Size.x; x++)
+        [ContextMenu("Setup")]
+        public void SetupNewRoom()
         {
-            for (int y = 0; y < Size.y; y++)
+            if (positionParent != null)
             {
-                var position = Instantiate(PositionPrefab, positionParent);
-                position.Position = new Vector2Int(x, y);
-                
-                position.transform.position = new Vector3(x * Resolution.x, transform.position.y, y * Resolution.y);
-                Positions[x, y] = position;
+                positionParent.DestroyGameObject();
+            }
+
+            positionParent = new GameObject("Positions").transform;
+            positionParent.SetParent(transform);
+            positionParent.localPosition = Vector3.zero;
+
+            Positions = new RoomPosition[Size.x, Size.y];
+
+            for (int x = 0; x < Size.x; x++)
+            {
+                for (int y = 0; y < Size.y; y++)
+                {
+                    var position = Instantiate(PositionPrefab, positionParent);
+                    position.Position = new Vector2Int(x, y);
+
+                    position.transform.position = new Vector3(x * Resolution.x, transform.position.y, y * Resolution.y);
+                    Positions[x, y] = position;
+                }
             }
         }
     }

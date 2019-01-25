@@ -9,76 +9,104 @@ Prefab:
     m_Modifications: []
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 1104937427951824}
+  m_RootGameObject: {fileID: 1709481443515908}
   m_IsPrefabAsset: 1
---- !u!1 &1049509294381064
+--- !u!1 &1579625416834250
+GameObject:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4276496785910116}
+  - component: {fileID: 33360771473837446}
+  - component: {fileID: 23222054753230308}
+  - component: {fileID: 65483893695337578}
+  m_Layer: 10
+  m_Name: Cube
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &1638426518604878
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 4974943005225428}
-  - component: {fileID: 33384176398026880}
-  - component: {fileID: 23270939746392558}
-  - component: {fileID: 65041272149669446}
-  m_Layer: 9
-  m_Name: Model
+  - component: {fileID: 4279501294277508}
+  m_Layer: 10
+  m_Name: Pivot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!1 &1104937427951824
+--- !u!1 &1709481443515908
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 4853717796054300}
-  - component: {fileID: 114788683299965638}
-  - component: {fileID: 54951718160537684}
-  m_Layer: 9
-  m_Name: RoomPosition
+  - component: {fileID: 4445825998294106}
+  - component: {fileID: 114093973352382364}
+  m_Layer: 10
+  m_Name: Box
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4853717796054300
+--- !u!4 &4276496785910116
 Transform:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1104937427951824}
+  m_GameObject: {fileID: 1579625416834250}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.3, z: 0}
+  m_LocalScale: {x: 1, y: 0.6, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4279501294277508}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4279501294277508
+Transform:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1638426518604878}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 4974943005225428}
-  m_Father: {fileID: 0}
+  - {fileID: 4276496785910116}
+  m_Father: {fileID: 4445825998294106}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &4974943005225428
+--- !u!4 &4445825998294106
 Transform:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1049509294381064}
+  m_GameObject: {fileID: 1709481443515908}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.05, z: 0}
-  m_LocalScale: {x: 0.9, y: 0.1, z: 0.9}
-  m_Children: []
-  m_Father: {fileID: 4853717796054300}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 4279501294277508}
+  m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!23 &23270939746392558
+--- !u!23 &23222054753230308
 MeshRenderer:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1049509294381064}
+  m_GameObject: {fileID: 1579625416834250}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -88,7 +116,7 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: 93bb0c4aea29d4681bd32fb4ae25c6b7, type: 2}
+  - {fileID: 2100000, guid: e99f666af629444628f0e0d683996c49, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -108,51 +136,39 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!33 &33384176398026880
+--- !u!33 &33360771473837446
 MeshFilter:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1049509294381064}
+  m_GameObject: {fileID: 1579625416834250}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!54 &54951718160537684
-Rigidbody:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1104937427951824}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 0
-  m_IsKinematic: 1
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
---- !u!65 &65041272149669446
+--- !u!65 &65483893695337578
 BoxCollider:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1049509294381064}
+  m_GameObject: {fileID: 1579625416834250}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &114788683299965638
+--- !u!114 &114093973352382364
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1104937427951824}
+  m_GameObject: {fileID: 1709481443515908}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e6106168b9f4d4b1599500a637fd3bec, type: 3}
+  m_Script: {fileID: 11500000, guid: 07b85113fc3d2474c8c9d61066412ec5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BaseModel: {fileID: 1049509294381064}
-  Position: {x: 0, y: 0}
-  Item: {fileID: 0}
+  Size: {x: 1, y: 1}
+  Orientation: 0
+  renderer: {fileID: 23222054753230308}
+  pivot: {fileID: 0}
+  UnavailablePlacingColor: {r: 0.9843137, g: 0.007843138, b: 0.02745098, a: 0.7372549}
+  AvailablePlacingColor: {r: 0.5019608, g: 1, b: 0.03137255, a: 0.74509805}
