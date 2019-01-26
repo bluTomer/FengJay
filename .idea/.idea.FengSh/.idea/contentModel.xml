@@ -34,7 +34,9 @@
           </e>
           <e p="Rules" t="Include">
             <e p="BaseRule.cs" t="Include" />
+            <e p="FacingNotBlockedRule.cs" t="Include" />
             <e p="FacingRule.cs" t="Include" />
+            <e p="IsReachableRule.cs" t="Include" />
             <e p="MustBeInFrontOfRule.cs" t="Include" />
             <e p="MustNotBeInFrontOfRule.cs" t="Include" />
             <e p="MustNotTouchRule.cs" t="Include" />

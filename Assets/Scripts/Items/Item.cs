@@ -158,6 +158,35 @@ namespace Scripts.Items
             return result;
         }
         
+        public List<RoomPosition> GetPositionsDirectlyInFront(Room room)
+        {
+            var result = new List<RoomPosition>();
+            
+            var itemPositions = GetItemPositions(room);
+            var advance = GetProgressDirection(orientation);
+
+            foreach (var itemPosition in itemPositions)
+            {
+                var pos = itemPosition;
+                
+                while (pos != null)
+                {
+                    pos = room.GetPositionAt(pos.Position.x + advance.x, pos.Position.y + advance.y);
+
+                    if (pos == null)
+                        continue;
+                        
+                    if (pos.IsTaken && pos.Item == this)
+                        continue;
+
+                    result.Add(pos);
+                    break;
+                } 
+            }
+
+            return result;
+        }
+        
         public List<RoomPosition> GetPositionsInFront(Room room)
         {
             var result = new List<RoomPosition>();
@@ -219,6 +248,46 @@ namespace Scripts.Items
             }
 
             return result;
+        }
+
+        public List<Item> GetAllReachableItems(Room room)
+        {
+            var positions = GetItemPositions(room);
+
+            var items = new List<Item>();
+
+            foreach (var position in positions)
+            {
+                var reachableItems = GetAllReachableItems(position, new List<RoomPosition>(), room);
+                items.AddRange(reachableItems);
+            }
+
+            return items;
+        }
+
+        private List<Item> GetAllReachableItems(RoomPosition position, List<RoomPosition> visitedPositions, Room room)
+        {
+            var itemList = new List<Item>();
+            visitedPositions.Add(position);
+            
+            if (position.IsTaken && position.Item != this)
+            {
+                itemList.Add(position.Item);
+                return itemList;
+            }
+            
+            for (int i = 0; i < 4; i++)
+            {
+                var delta = GetProgressDirection((Orientation) i);
+                var adjacentPosition = room.GetPositionAt(position.Position.x + delta.x, position.Position.y + delta.y);
+                if (adjacentPosition != null && !visitedPositions.Contains(adjacentPosition))
+                {
+                    var reachableItems = GetAllReachableItems(adjacentPosition, visitedPositions, room);
+                    itemList.AddRange(reachableItems);
+                }
+            }
+
+            return itemList;
         }
         
         private Vector2Int GetProgressDirection(Orientation direction)
