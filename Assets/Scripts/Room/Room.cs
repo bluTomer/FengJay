@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Scripts.Items;
 using UnityEngine;
 
@@ -66,6 +67,31 @@ namespace Scripts
             }
 
             return null;
+        }
+
+        public List<Item> GetItemsInRoom(ItemType type)
+        {
+            var result = new List<Item>();
+            
+            for (int x = 0; x < Size.x; x++)
+            {
+                for (int y = 0; y < Size.y; y++)
+                {
+                    var position = Positions[x, y];
+
+                    if (!position.IsTaken)
+                        continue; // Empty position
+                    
+                    var item = position.Item;
+
+                    if (item.Type == type)
+                    {
+                        result.Add(item);
+                    }
+                }
+            }
+
+            return result;
         }
         
         public void TraversePositions(Action<RoomPosition> invokeOnPosition)

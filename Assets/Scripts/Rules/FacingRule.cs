@@ -11,13 +11,19 @@ namespace Scripts.Rules
 
         public override bool Evaluate()
         {
-            var item = Room.GetItemInRoom(ItemType);
+            var items = Room.GetItemsInRoom(ItemType);
 
             // If item isn't in the room the rule doesn't apply
-            if (item == null)
-                return true; 
+            if (items.Count == 0)
+                return true;
+
+            foreach (var item in items)
+            {
+                if (item.Orientation != CorrectOrientation)
+                    return false;
+            }
             
-            return item.Orientation == CorrectOrientation;
+            return true;
         }
     }
 }

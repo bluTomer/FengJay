@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Scripts.Items;
 using UnityEngine;
 
@@ -11,26 +12,34 @@ namespace Scripts.Rules
         
         public override bool Evaluate()
         {
-            var testedItem = Room.GetItemInRoom(TestedItem);
+            var testedItems = Room.GetItemsInRoom(TestedItem);
 
-            if (testedItem == null)
+            if (testedItems.Count == 0)
                 return true; 
 
             var inFrontOfItem = Room.GetItemInRoom(InFrontOf);
             if (inFrontOfItem == null)
                 return true;
 
-            var positionsInFront = testedItem.GetPositionsInFront(Room);
-
-            foreach (var position in positionsInFront)
+            foreach (var testedItem in testedItems)
             {
-                if (position.IsTaken && position.Item == inFrontOfItem)
-                {
+                var positionsInFront = testedItem.GetPositionsInFront(Room);
+                if (CheckPositionsForItem(positionsInFront, inFrontOfItem))
                     return false;
-                }
             }
 
             return true;
+        }
+
+        private bool CheckPositionsForItem(List<RoomPosition> positionsInFront, Item inFrontOfItem)
+        {
+            foreach (var position in positionsInFront)
+            {
+                if (position.IsTaken && position.Item == inFrontOfItem)
+                    return true;
+            }
+
+            return false;
         }
     }
 }
