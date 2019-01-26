@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Text;
 using Scripts.Items;
 using UnityEngine;
 
@@ -32,5 +33,32 @@ namespace Scripts.Rules
 
             return true;
         }
+        
+        public override string GetDescription()
+        {
+            var sb = new StringBuilder();
+
+            sb.Append("All ");
+
+            for (var index = 0; index < itemTypes.Count; index++)
+            {
+                var itemType = itemTypes[index];
+
+                if (index != itemTypes.Count - 1)
+                {
+                    sb.Append(itemType + "s, ");
+                }
+                else
+                {
+                    sb.Append("and " + itemType + "s");
+                }
+                
+            }
+
+            sb.Append(" must not touch each other.");
+            
+            return sb.ToString();
+        }
+
     }
 }

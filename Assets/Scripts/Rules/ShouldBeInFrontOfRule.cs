@@ -32,6 +32,11 @@ namespace Scripts.Rules
             return result;
         }
 
+        public override string GetDescription()
+        {
+            return string.Format("{0} must be facing {1} if {1} exists.", TestedItem, InFrontOf);
+        }
+
         private bool CheckPositionsForItem(List<RoomPosition> positionsInFront, Item inFrontOfItem)
         {
             foreach (var position in positionsInFront)

@@ -12,5 +12,6 @@ namespace Scripts.Rules
         }
 
         public abstract bool Evaluate();
+        public abstract string GetDescription();
     }
 }

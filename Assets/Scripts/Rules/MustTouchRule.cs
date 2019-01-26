@@ -39,5 +39,10 @@ namespace Scripts.Rules
 
             return allItemsResult;
         }
+
+        public override string GetDescription()
+        {
+            return string.Format("{1} must touch {2}.", firstItemType, secondItemType);
+        }
     }
 }
