@@ -34,7 +34,7 @@ namespace Scripts.Rules
             return true;
         }
         
-        public override string GetDescription()
+        public override string GetRuleAddedDescription()
         {
             var sb = new StringBuilder();
 
@@ -59,6 +59,31 @@ namespace Scripts.Rules
             
             return sb.ToString();
         }
+        
+        public override string GetRuleRemovedDescription()
+        {
+            var sb = new StringBuilder();
 
+            sb.Append("All ");
+
+            for (var index = 0; index < itemTypes.Count; index++)
+            {
+                var itemType = itemTypes[index];
+
+                if (index != itemTypes.Count - 1)
+                {
+                    sb.Append(itemType + "s, ");
+                }
+                else
+                {
+                    sb.Append("and " + itemType + "s");
+                }
+                
+            }
+
+            sb.Append(" can now touch each other again (but they don't have to).");
+            
+            return sb.ToString();
+        }
     }
 }

@@ -26,9 +26,14 @@ namespace Scripts.Rules
             return true;
         }
         
-        public override string GetDescription()
+        public override string GetRuleAddedDescription()
         {
             return string.Format("All {0}s must not be facing {1}.", ItemType, WrongOrientation);
+        }
+        
+        public override string GetRuleRemovedDescription()
+        {
+            return string.Format("All {0}s can now be facing {1}.", ItemType, WrongOrientation);
         }
     }
 }

@@ -31,9 +31,14 @@ namespace Scripts.Rules
             return true;
         }
         
-        public override string GetDescription()
+        public override string GetRuleAddedDescription()
         {
             return string.Format("All {0}s must not be facing {1}.", TestedItem, InFrontOf);
+        }
+        
+        public override string GetRuleRemovedDescription()
+        {
+            return string.Format("All {0}s can now be facing a {1} (but they don't have to).", TestedItem, InFrontOf);
         }
 
         private bool CheckPositionsForItem(List<RoomPosition> positionsInFront, Item inFrontOfItem)

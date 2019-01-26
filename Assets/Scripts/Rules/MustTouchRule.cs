@@ -40,9 +40,14 @@ namespace Scripts.Rules
             return allItemsResult;
         }
 
-        public override string GetDescription()
+        public override string GetRuleAddedDescription()
         {
-            return string.Format("{1} must touch {2}.", firstItemType, secondItemType);
+            return string.Format("All {1}s must touch a {2}.", firstItemType, secondItemType);
+        }
+        
+        public override string GetRuleRemovedDescription()
+        {
+            return string.Format("All {0}s no longer need to be touching a {1}.", firstItemType, secondItemType);
         }
     }
 }
