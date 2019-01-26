@@ -16,7 +16,7 @@ namespace Scripts
 
 		public void SetItem(Item item)
 		{
-			BaseModel.enabled = false;
+//			BaseModel.enabled = false;
 			Item = item;
 		}
 
