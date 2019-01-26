@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Scripts.Items;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Scripts.Rules
 {
@@ -15,7 +16,10 @@ namespace Scripts.Rules
     public class Level
     {
         public Vector2Int LevelSize; // WithoutBorder
-        public List<LevelObjectDefinition> Objects;
+        public List<ItemType> RequiredItems;
+        
+        [FormerlySerializedAs("Objects")]
+        public List<LevelObjectDefinition> PrePlacedObjects;
         public List<BaseRule> RulesToAdd;
         public List<BaseRule> RulesToRemove;
     }

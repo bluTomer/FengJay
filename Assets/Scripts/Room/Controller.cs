@@ -108,8 +108,18 @@ namespace Scripts
                     PlaceItemAtPoint(raycast.hit.point);
                 }
             }
+
+            var hit = raycast.hit;
             
-            var room = raycast.hit.rigidbody.GetComponent<Room>();
+            var rigidbody = hit.rigidbody;
+
+            if (rigidbody == null)
+            {
+                Debug.Log("hit: " + hit.transform.name);
+                return;
+            }
+            
+            var room = rigidbody.GetComponent<Room>();
             if (room != null)
             {
                 if (Input.GetMouseButtonDown(0))

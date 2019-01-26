@@ -153,6 +153,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6106168b9f4d4b1599500a637fd3bec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BaseModel: {fileID: 1049509294381064}
+  BaseModel: {fileID: 23270939746392558}
   Position: {x: 0, y: 0}
   Item: {fileID: 0}

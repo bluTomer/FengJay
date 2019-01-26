@@ -5,7 +5,7 @@ namespace Scripts
 {
 	public class RoomPosition : MonoBehaviour
 	{
-		public GameObject BaseModel;
+		public Renderer BaseModel;
 		public Vector2Int Position;
 		public Item Item;
 
@@ -16,6 +16,7 @@ namespace Scripts
 
 		public void SetItem(Item item)
 		{
+			BaseModel.enabled = false;
 			Item = item;
 		}
 

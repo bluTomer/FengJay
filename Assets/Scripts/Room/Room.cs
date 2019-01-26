@@ -51,7 +51,7 @@ namespace Scripts
             }
 
             // Add level objects (doors)
-            foreach (var levelObject in level.Objects)
+            foreach (var levelObject in level.PrePlacedObjects)
             {
                 var item = Instantiate(GameSystem.Config.ItemSet.GetItemPrefab(levelObject.ItemType));
                 var position = Positions[levelObject.Position.x + 1, levelObject.Position.y + 1];
@@ -70,13 +70,77 @@ namespace Scripts
                 {
                     if (Positions[x, y].IsTaken)
                         continue;
-                    
-                    if (x == 0 || x == Size.x - 1 || y == 0 || y == Size.y - 1)
+
+                    if (x == 0)
                     {
                         var item = Instantiate(GameSystem.Config.ItemSet.GetItemPrefab(ItemType.Blocked));
                         var position = Positions[x, y];
                         position.SetItem(item);
                         item.SetPosition(position);
+                        for (int i = 0; i < (int)Orientation.Down; i++)
+                        {
+                            item.RotateRight();
+                        }
+
+                        if (y == 0 || y == Size.y - 1)
+                        {
+                            // Don't show corner items
+                            item.Hide();
+                        }
+                    }
+                    
+                    if (y == 0)
+                    {
+                        var item = Instantiate(GameSystem.Config.ItemSet.GetItemPrefab(ItemType.Blocked));
+                        var position = Positions[x, y];
+                        position.SetItem(item);
+                        item.SetPosition(position);
+                        for (int i = 0; i < (int)Orientation.Right; i++)
+                        {
+                            item.RotateRight();
+                        }
+
+                        if (x == 0 || x == Size.x - 1)
+                        {
+                            // Don't show corner items
+                            item.Hide();
+                        }
+                    }
+                    
+                    if (x == Size.x - 1)
+                    {
+                        var item = Instantiate(GameSystem.Config.ItemSet.GetItemPrefab(ItemType.Blocked));
+                        var position = Positions[x, y];
+                        position.SetItem(item);
+                        item.SetPosition(position);
+                        for (int i = 0; i < (int)Orientation.Up; i++)
+                        {
+                            item.RotateRight();
+                        }
+
+                        if (y == 0 || y == Size.y - 1)
+                        {
+                            // Don't show corner items
+                            item.Hide();
+                        }
+                    }
+                    
+                    if (y == Size.y - 1)
+                    {
+                        var item = Instantiate(GameSystem.Config.ItemSet.GetItemPrefab(ItemType.Blocked));
+                        var position = Positions[x, y];
+                        position.SetItem(item);
+                        item.SetPosition(position);
+                        for (int i = 0; i < (int)Orientation.Left; i++)
+                        {
+                            item.RotateRight();
+                        }
+
+                        if (x == 0 || x == Size.x - 1)
+                        {
+                            // Don't show corner items
+                            item.Hide();
+                        }
                     }
                 }
             }

@@ -27,18 +27,25 @@ namespace Scripts.Items
         }
         
         [SerializeField] private Transform pivot;
-        [SerializeField] private Renderer renderer;
         [SerializeField] private Orientation orientation;
         [SerializeField] private ItemType type;
         [SerializeField] private Bool5x5 size;
 
-        private Color originalColor;
+        private Renderer[] renderers;
+        private Color[] originalColors;
         private bool showing = true;
         private bool[,] sizeTable;
 
         private void Awake()
         {
-            originalColor = renderer.material.color;
+            renderers = GetComponentsInChildren<Renderer>(includeInactive: true);
+            
+            originalColors = new Color[renderers.Length];
+            for (var index = 0; index < renderers.Length; index++)
+            {
+                originalColors[index] = renderers[index].material.color;
+            }
+
             sizeTable = new bool[MAX_SIZE, MAX_SIZE];
             for (int x = 0; x < MAX_SIZE; x++)
             {
@@ -102,7 +109,10 @@ namespace Scripts.Items
         {
             if (!showing)
             {
-                renderer.enabled = true;
+                foreach (var renderer in renderers)
+                {
+                    renderer.enabled = true;
+                }
                 showing = true;
             }
         }
@@ -111,7 +121,10 @@ namespace Scripts.Items
         {
             if (showing)
             {
-                renderer.enabled = false;
+                foreach (var renderer in renderers)
+                {
+                    renderer.enabled = false;
+                }
                 showing = false;
             }
         }
@@ -126,13 +139,23 @@ namespace Scripts.Items
             switch (status)
             {
                 case PlacingStatus.None:
-                    renderer.material.color = originalColor;
+                    for (var index = 0; index < renderers.Length; index++)
+                    {
+                        
+                        renderers[index].material.color = originalColors[index];
+                    }
                     break;
                 case PlacingStatus.UnAvailable:
-                    renderer.material.color = GameSystem.Config.UnavailablePlacingColor;
+                    foreach (var renderer in renderers)
+                    {
+                        renderer.material.color = GameSystem.Config.UnavailablePlacingColor;
+                    }
                     break;
                 case PlacingStatus.Available:
-                    renderer.material.color = GameSystem.Config.AvailablePlacingColor;
+                    foreach (var renderer in renderers)
+                    {
+                        renderer.material.color = GameSystem.Config.AvailablePlacingColor;
+                    }
                     break;
                 default:
                     throw new ArgumentOutOfRangeException("status", status, null);
