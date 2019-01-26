@@ -97,11 +97,13 @@ namespace Scripts.Game
             if (!ruleChecker.EvaluateRules(out failedRule))
             {
                 // TODO: Notify failed rule
+                SoundPlayer.Instance.PlaySound(GameSystem.Config.FailedRuleSound);
                 Debug.Log("Rule Failed! " + failedRule.name);
             }
             else
             {
                 // TODO: Notify success
+                SoundPlayer.Instance.PlaySound(GameSystem.Config.LevelSuccessSound);
                 Debug.Log("Rules Eval Success!");
             }
         }

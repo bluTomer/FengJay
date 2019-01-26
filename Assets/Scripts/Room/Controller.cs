@@ -1,4 +1,5 @@
 using System;
+using Scripts.Game;
 using Scripts.Items;
 using UnityEngine;
 
@@ -111,6 +112,10 @@ namespace Scripts
             var room = raycast.hit.rigidbody.GetComponent<Room>();
             if (room != null)
             {
+                if (Input.GetMouseButtonDown(0))
+                {
+                    SoundPlayer.Instance.PlaySound(GameSystem.Config.ErrorSound);
+                }
                 PlaceItemAtPoint(raycast.hit.point);
             }
         }
@@ -160,6 +165,8 @@ namespace Scripts
                 
                 itemBeingPlaced.SetPlacingStatus(Item.PlacingStatus.None);
                 CurrentMode = ControlMode.None;
+                
+                SoundPlayer.Instance.PlaySound(GameSystem.Config.PlaceSound);
                 
                 if (ItemPlacedEvent != null)
                     ItemPlacedEvent(itemBeingPlaced);

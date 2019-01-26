@@ -16,5 +16,10 @@ namespace Scripts.Game
         
         public Color UnavailablePlacingColor;
         public Color AvailablePlacingColor;
+
+        public AudioClip PlaceSound;
+        public AudioClip ErrorSound;
+        public AudioClip FailedRuleSound;
+        public AudioClip LevelSuccessSound;
     }
 }

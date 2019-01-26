@@ -21,3 +21,7 @@ MonoBehaviour:
     type: 2}
   UnavailablePlacingColor: {r: 0.9843137, g: 0.007843138, b: 0.02745098, a: 0.69803923}
   AvailablePlacingColor: {r: 0.12941177, g: 1, b: 0.5019608, a: 0.69803923}
+  PlaceSound: {fileID: 8300000, guid: 7d8da6b48e075450e9911dec0015a233, type: 3}
+  ErrorSound: {fileID: 8300000, guid: 906a1e7b3e2c1429292c960193f958fe, type: 3}
+  FailedRuleSound: {fileID: 8300000, guid: b95158ea17d28453e856eaa3860b8976, type: 3}
+  LevelSuccessSound: {fileID: 8300000, guid: cf05079bec88e46749802a66c5e36ce9, type: 3}
