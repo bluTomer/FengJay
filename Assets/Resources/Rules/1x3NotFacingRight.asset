@@ -8,8 +8,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6bc1ef58afe1404a819e51330ec32d44, type: 3}
-  m_Name: 1x2ShouldBeInFrontOf1x1
+  m_Script: {fileID: 11500000, guid: 8c1f19156b68461398234edce5705404, type: 3}
+  m_Name: 1x3NotFacingRight
   m_EditorClassIdentifier: 
-  TestedItem: 1
-  InFrontOf: 0
+  ItemType: 2
+  WrongOrientation: 0

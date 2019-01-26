@@ -13,5 +13,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Levels:
   - RulesToAdd:
-    - {fileID: 11400000, guid: b7592ab7d793c4fa09d284cd51eb8406, type: 2}
+    - {fileID: 11400000, guid: d5fface6b5f2648a3966af8a10940d89, type: 2}
     RulesToRemove: []
