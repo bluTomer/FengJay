@@ -11,4 +11,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd52e82efa0240f4841e55866ecc008b, type: 3}
   m_Name: AllDoorsReachable
   m_EditorClassIdentifier: 
-  targetItemType: 5
+  targetItemType: 1

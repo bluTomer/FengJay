@@ -42,7 +42,7 @@ namespace Scripts
             {
                 for (int y = 0; y < Size.y; y++)
                 {
-                    var position = Instantiate(PositionPrefab, positionParent);
+                    var position = Instantiate(level.PositionPrefab, positionParent);
                     position.Position = new Vector2Int(x, y);
 
                     position.transform.position = new Vector3(x * Resolution.x, transform.position.y, y * Resolution.y);

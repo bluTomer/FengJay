@@ -13,20 +13,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Levels:
   - LevelSize: {x: 3, y: 1}
-    Objects:
+    PositionPrefab: {fileID: 114788683299965638, guid: 127d605689d7b4ea2b008bc704ab961c,
+      type: 2}
+    RequiredItems: 
+    PrePlacedObjects:
     - Position: {x: 3, y: 0}
       ItemOrientation: 3
       ItemType: 5
     RulesToAdd: []
     RulesToRemove: []
   - LevelSize: {x: 3, y: 2}
-    Objects:
+    PositionPrefab: {fileID: 114788683299965638, guid: 127d605689d7b4ea2b008bc704ab961c,
+      type: 2}
+    RequiredItems: 
+    PrePlacedObjects:
     - Position: {x: 0, y: -1}
       ItemOrientation: 0
-      ItemType: 5
+      ItemType: 1
     - Position: {x: 3, y: 1}
       ItemOrientation: 3
-      ItemType: 5
+      ItemType: 1
     RulesToAdd:
     - {fileID: 11400000, guid: 98cb525c50c3b44fd90b087ba8e53835, type: 2}
     RulesToRemove: []

@@ -8,8 +8,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 356519d5051141cd8b46b9343d5f8ba9, type: 3}
-  m_Name: 1x1MustBeInFrontOf1x2
+  m_Script: {fileID: 11500000, guid: f440ab92472a43628a774ca71b00c6aa, type: 3}
+  m_Name: PlantsCannotTouch
   m_EditorClassIdentifier: 
-  TestedItem: 0
-  InFrontOf: 1
+  itemTypes: 02000000

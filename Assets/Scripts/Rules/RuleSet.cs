@@ -16,6 +16,7 @@ namespace Scripts.Rules
     public class Level
     {
         public Vector2Int LevelSize; // WithoutBorder
+        public RoomPosition PositionPrefab;
         public List<ItemType> RequiredItems;
         
         [FormerlySerializedAs("Objects")]

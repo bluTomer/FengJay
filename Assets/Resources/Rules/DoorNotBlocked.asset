@@ -11,4 +11,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c7c578cfc5c34e37a47a051a7398250, type: 3}
   m_Name: DoorNotBlocked
   m_EditorClassIdentifier: 
-  TestedItem: 5
+  TestedItem: 1

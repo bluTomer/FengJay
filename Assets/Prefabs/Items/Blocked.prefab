@@ -170,7 +170,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pivot: {fileID: 4020613742532240}
   orientation: 0
-  type: 4
+  type: 0
   size:
     Size: 5
     Rows:

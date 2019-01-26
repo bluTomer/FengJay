@@ -13,14 +13,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Definitions:
   - Type: 0
-    Prefab: {fileID: 114093973352382364, guid: f8fa6be6e35b14bec86b1b5230d58541, type: 2}
-  - Type: 1
-    Prefab: {fileID: 114093973352382364, guid: e591a4f3628e94f2fa1204c24db718b0, type: 2}
-  - Type: 2
-    Prefab: {fileID: 114093973352382364, guid: 34845e025e14e47f4af0e44a0c741391, type: 2}
-  - Type: 3
-    Prefab: {fileID: 114093973352382364, guid: 4ec6e3071db834c81b46089d930a8b12, type: 2}
-  - Type: 4
     Prefab: {fileID: 114858220926885400, guid: f6aba9acd10fb4318af496adfa9aba72, type: 2}
-  - Type: 5
+  - Type: 1
     Prefab: {fileID: 114093973352382364, guid: a5f2ca9ccdb69460b83f88bdb705611d, type: 2}
+  - Type: 2
+    Prefab: {fileID: 114314967555611042, guid: 7a451b43149c247b09bf54a37b077122, type: 2}
+  - Type: 3
+    Prefab: {fileID: 114254077730320060, guid: 88c3e905f442c42b7a02cf6cbecb3307, type: 2}
