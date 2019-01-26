@@ -3,8 +3,8 @@ using UnityEngine;
 
 namespace Scripts.Rules
 {
-    [CreateAssetMenu(menuName = "Rules/Should Be In Front Of")]
-    public class ShouldBeInFrontOfRule : BaseRule
+    [CreateAssetMenu(menuName = "Rules/Must Be In Front Of")]
+    public class MustBeInFrontOfRule : BaseRule
     {
         [SerializeField] private ItemType TestedItem;
         [SerializeField] private ItemType InFrontOf;
@@ -18,7 +18,7 @@ namespace Scripts.Rules
 
             var inFrontOfItem = Room.GetItemInRoom(InFrontOf);
             if (inFrontOfItem == null)
-                return true;
+                return false;
 
             var positionsInFront = testedItem.GetPositionsInFront(Room);
 

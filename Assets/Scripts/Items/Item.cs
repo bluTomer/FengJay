@@ -29,8 +29,8 @@ namespace Scripts.Items
         [SerializeField] private Transform pivot;
         [SerializeField] private Renderer renderer;
         [SerializeField] private Orientation orientation;
-        [SerializeField] private Bool5x5 size;
         [SerializeField] private ItemType type;
+        [SerializeField] private Bool5x5 size;
 
         private Color originalColor;
         private bool showing = true;
@@ -190,14 +190,14 @@ namespace Scripts.Items
         {
             switch (orientation)
             {
-                case Orientation.Forward:
-                    return Vector2Int.right;
                 case Orientation.Right:
-                    return Vector2Int.down;
-                case Orientation.Back:
-                    return Vector2Int.left;
+                    return new Vector2Int(0, 1);
+                case Orientation.Down:
+                    return new Vector2Int(1, 0);
                 case Orientation.Left:
-                    return Vector2Int.up;
+                    return new Vector2Int(0, -1);
+                case Orientation.Up:
+                    return new Vector2Int(-1, 0);
                 default:
                     throw new ArgumentOutOfRangeException();
             }

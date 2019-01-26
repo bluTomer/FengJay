@@ -3,11 +3,11 @@ using UnityEngine;
 
 namespace Scripts.Rules
 {
-    [CreateAssetMenu(menuName = "Rules/Facing Orientation")]
-    public class FacingRule : BaseRule
+    [CreateAssetMenu(menuName = "Rules/Not Facing Orientation")]
+    public class NotFacingRule : BaseRule
     {
         public ItemType ItemType;
-        public Orientation CorrectOrientation;
+        public Orientation WrongOrientation;
 
         public override bool Evaluate()
         {
@@ -17,7 +17,7 @@ namespace Scripts.Rules
             if (item == null)
                 return true; 
             
-            return item.Orientation == CorrectOrientation;
+            return item.Orientation != WrongOrientation;
         }
     }
 }

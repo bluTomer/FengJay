@@ -8,10 +8,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4c323ffe20fb4ad9a7c5bb06f02f88f2, type: 3}
-  m_Name: RuleSet
+  m_Script: {fileID: 11500000, guid: 6bc1ef58afe1404a819e51330ec32d44, type: 3}
+  m_Name: 1x2InFrontOf1x1
   m_EditorClassIdentifier: 
-  Levels:
-  - RulesToAdd:
-    - {fileID: 11400000, guid: b7592ab7d793c4fa09d284cd51eb8406, type: 2}
-    RulesToRemove: []

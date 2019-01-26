@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Scripts.Items
 {
-    [CreateAssetMenu(menuName = "Items/Item Set")]
+    [CreateAssetMenu(menuName = "Item Set")]
     public class ItemSet : ScriptableObject
     {
         public List<ItemDefinition> Definitions;

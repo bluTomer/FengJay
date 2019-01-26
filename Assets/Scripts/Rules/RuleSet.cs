@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Scripts.Rules
 {
-    [CreateAssetMenu(menuName = "Rules/Rule Set")]
+    [CreateAssetMenu(menuName = "Rule Set")]
     public class RuleSet : ScriptableObject
     {
         public List<Level> Levels;

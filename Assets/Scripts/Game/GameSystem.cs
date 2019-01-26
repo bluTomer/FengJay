@@ -91,14 +91,18 @@ namespace Scripts.Game
 
         private void OnItemPlacedEvent(Item item)
         {
+            Debug.Log("Checking Rules...");
+            
             BaseRule failedRule;
             if (!ruleChecker.EvaluateRules(out failedRule))
             {
                 // TODO: Notify failed rule
+                Debug.Log("Rule Failed! " + failedRule.name);
             }
             else
             {
                 // TODO: Notify success
+                Debug.Log("Rules Eval Success!");
             }
         }
     }

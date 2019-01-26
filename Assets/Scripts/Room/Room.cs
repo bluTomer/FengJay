@@ -67,7 +67,7 @@ namespace Scripts
 
             return null;
         }
-
+        
         public void TraversePositions(Action<RoomPosition> invokeOnPosition)
         {
             for (int x = 0; x < Size.x; x++)
