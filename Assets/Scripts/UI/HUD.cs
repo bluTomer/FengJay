@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using Scripts;
 using Scripts.Game;
 using Scripts.Items;
 using UnityEngine;
@@ -7,8 +8,9 @@ using UnityEngine.UI;
 
 public class HUD : MonoBehaviour
 {
-    [SerializeField] private Button[] itemButtons;
-    [SerializeField] private JayAnimator JayAnimator;
+    [SerializeField] private Transform buttonsParent;
+    [SerializeField] private JayAnimator jayAnimator;
+    [SerializeField] private Button buttonPrefab;
 
     private GameSystem gameSystem;
     private GraphicRaycaster raycaster;
@@ -19,15 +21,33 @@ public class HUD : MonoBehaviour
         this.gameSystem = gameSystem;
         raycaster = GetComponent<GraphicRaycaster>();
 
-        for (int i = 0; i < itemButtons.Length; i++)
+        gameSystem.NewLevelStartedEvent += OnNewLevelStartedEvent;
+    }
+
+    private void OnNewLevelStartedEvent(int levelIndex)
+    {
+        var buttons = buttonsParent.GetComponentsInChildren<Button>();
+        if (buttons != null)
         {
-            var itemType = (ItemType) i;
-            
-            itemButtons[i].onClick.AddListener(delegate
+            foreach (var button in buttons)
             {
-                OnButtonClicked(itemType);
-            });
+                button.DestroyGameObject();
+            }
         }
+        
+        foreach (var requiredItem in gameSystem.RequiredItemsForLevel)
+        {
+            CreateButton(requiredItem);
+        }
+    }
+
+    private void CreateButton(ItemType itemType)
+    {
+        var button = Instantiate(buttonPrefab, buttonsParent);
+        button.onClick.AddListener(delegate
+        {
+            OnButtonClicked(itemType);
+        });
     }
 
     private void OnButtonClicked(ItemType itemType)
@@ -37,8 +57,8 @@ public class HUD : MonoBehaviour
 
     public void SetJayText(bool isHappy, float timePerText, Action uiDone, params string[] texts)
     {
-        JayAnimator.SetHappy(isHappy);
-        JayAnimator.Show();
+        jayAnimator.SetHappy(isHappy);
+        jayAnimator.Show();
         raycaster.enabled = false;
 
         if (jayCoroutine != null)
@@ -51,10 +71,10 @@ public class HUD : MonoBehaviour
     
     private IEnumerator RunJayText(float timePerText, Action uiDone, string[] texts)
     {
-        JayAnimator.SetText(texts[0]);
+        jayAnimator.SetText(texts[0]);
 
         bool finished;
-        JayAnimator.UpdateTextEvent += () => finished = true;
+        jayAnimator.UpdateTextEvent += () => finished = true;
         
         for (var index = 1; index < texts.Length; index++)
         {
@@ -62,16 +82,16 @@ public class HUD : MonoBehaviour
 
             finished = false;
             
-            JayAnimator.FlipTextBubble();
+            jayAnimator.FlipTextBubble();
 
             yield return new WaitUntil(() => finished);
             
-            JayAnimator.SetText(texts[index]);
+            jayAnimator.SetText(texts[index]);
         }
         
         yield return new WaitForSeconds(timePerText);
         
-        JayAnimator.Hide();
+        jayAnimator.Hide();
         raycaster.enabled = true;
         jayCoroutine = null;
 

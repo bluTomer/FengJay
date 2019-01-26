@@ -15,13 +15,8 @@ namespace Scripts
         public RoomPosition[,] Positions;
 
         private Transform positionParent;
+        private List<Item> prePositionedItems = new List<Item>();
 
-        private void Awake()
-        {
-//            SetupNewRoom();
-        }
-
-        [ContextMenu("Setup")]
         public void SetupNewRoom(Level level)
         {
             // Increasing size by 1 to accomodate border tiles
@@ -32,12 +27,19 @@ namespace Scripts
                 positionParent.DestroyGameObject();
             }
 
+            foreach (var prePositionedItem in prePositionedItems)
+            {
+                prePositionedItem.DestroyGameObject();
+            }
+            prePositionedItems.Clear();
+
             positionParent = new GameObject("Positions").transform;
             positionParent.SetParent(transform);
             positionParent.localPosition = Vector3.zero;
 
             Positions = new RoomPosition[Size.x, Size.y];
 
+            // Create positions
             for (int x = 0; x < Size.x; x++)
             {
                 for (int y = 0; y < Size.y; y++)
@@ -57,7 +59,7 @@ namespace Scripts
                 var position = Positions[levelObject.Position.x + 1, levelObject.Position.y + 1];
                 position.SetItem(item);
                 item.SetPosition(position);
-
+                prePositionedItems.Add(item);
                 for (int i = 0; i < (int)levelObject.ItemOrientation; i++)
                 {
                     item.RotateRight();
@@ -77,6 +79,7 @@ namespace Scripts
                         var position = Positions[x, y];
                         position.SetItem(item);
                         item.SetPosition(position);
+                        prePositionedItems.Add(item);
                         for (int i = 0; i < (int)Orientation.Down; i++)
                         {
                             item.RotateRight();
@@ -95,6 +98,7 @@ namespace Scripts
                         var position = Positions[x, y];
                         position.SetItem(item);
                         item.SetPosition(position);
+                        prePositionedItems.Add(item);
                         for (int i = 0; i < (int)Orientation.Right; i++)
                         {
                             item.RotateRight();
@@ -113,6 +117,7 @@ namespace Scripts
                         var position = Positions[x, y];
                         position.SetItem(item);
                         item.SetPosition(position);
+                        prePositionedItems.Add(item);
                         for (int i = 0; i < (int)Orientation.Up; i++)
                         {
                             item.RotateRight();
@@ -131,6 +136,7 @@ namespace Scripts
                         var position = Positions[x, y];
                         position.SetItem(item);
                         item.SetPosition(position);
+                        prePositionedItems.Add(item);
                         for (int i = 0; i < (int)Orientation.Left; i++)
                         {
                             item.RotateRight();

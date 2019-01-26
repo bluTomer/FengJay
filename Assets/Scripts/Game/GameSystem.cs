@@ -1,4 +1,6 @@
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using Scripts.Items;
 using Scripts.Rules;
@@ -8,7 +10,10 @@ namespace Scripts.Game
 {
     public class GameSystem : MonoBehaviour
     {
-        public event Action<int> NewLevelStartingEvent;
+        public event Action<int> NewLevelStartedEvent;
+        public event Action<ItemType> NewItemPlacedEvent;
+        public event Action<BaseRule> LevelFailedEvent;
+        public event Action LevelCompletedEvent;
         
         public static Config Config { get; private set; }
         
@@ -21,8 +26,11 @@ namespace Scripts.Game
         private Camera camera;
         private Room room;
         private HUD hud;
+
+        private List<Item> placedItems;
         
         public int CurrentLevelIndex { get; private set; }
+        public List<ItemType> RequiredItemsForLevel { get; private set; }
 
         private void Awake()
         {
@@ -39,6 +47,7 @@ namespace Scripts.Game
             hud = Instantiate(Config.HUDPrefab);
             
             ruleChecker = new RuleChecker(room);
+            placedItems = new List<Item>();
 
             controller.Initialize(room, camera);
             hud.Initialize(this);
@@ -54,17 +63,25 @@ namespace Scripts.Game
 
         public void StartGame()
         {
-            CurrentLevelIndex = 1;
+            CurrentLevelIndex = 0;
             StartLevel(CurrentLevelIndex);
         }
 
         public void StartLevel(int levelIndex)
         {
-            if (NewLevelStartingEvent != null)
-                NewLevelStartingEvent(levelIndex);
-            
             var level = ruleSet.Levels.ElementAt(levelIndex);
+            RequiredItemsForLevel = new List<ItemType>(level.RequiredItems);
+            
+            foreach (var placedItem in placedItems)
+            {
+                placedItem.DestroyGameObject();
+            }
+            placedItems.Clear();
+            
             LoadLevel(level);
+            
+            if (NewLevelStartedEvent != null)
+                NewLevelStartedEvent(levelIndex);
         }
 
         public void LoadLevel(Level level)
@@ -91,21 +108,43 @@ namespace Scripts.Game
 
         private void OnItemPlacedEvent(Item item)
         {
-            Debug.Log("Checking Rules...");
+            placedItems.Add(item);
+            
+            if (NewItemPlacedEvent != null)
+                NewItemPlacedEvent(item.Type);
             
             BaseRule failedRule;
             if (!ruleChecker.EvaluateRules(out failedRule))
             {
-                // TODO: Notify failed rule
-                SoundPlayer.Instance.PlaySound(GameSystem.Config.FailedRuleSound);
+                if (LevelFailedEvent != null)
+                    LevelFailedEvent(failedRule);
+                
+                SoundPlayer.Instance.PlaySound(Config.FailedRuleSound);
                 Debug.Log("Rule Failed! " + failedRule.name);
             }
             else
             {
-                // TODO: Notify success
-                SoundPlayer.Instance.PlaySound(GameSystem.Config.LevelSuccessSound);
-                Debug.Log("Rules Eval Success!");
+                RequiredItemsForLevel.Remove(item.Type);
+
+                if (RequiredItemsForLevel.Count == 0)
+                {
+                    if (LevelCompletedEvent != null)
+                        LevelCompletedEvent();
+                    
+                    SoundPlayer.Instance.PlaySound(Config.LevelSuccessSound);
+                    StartCoroutine(StartNextLevel());
+                    return;
+                }
+                
+                SoundPlayer.Instance.PlaySound(Config.PlaceSound);
             }
+        }
+
+        private IEnumerator StartNextLevel()
+        {
+            yield return new WaitForSeconds(2);
+            CurrentLevelIndex++;
+            StartLevel(CurrentLevelIndex);
         }
     }
 }

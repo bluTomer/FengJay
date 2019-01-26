@@ -15,17 +15,18 @@ MonoBehaviour:
   - LevelSize: {x: 3, y: 1}
     PositionPrefab: {fileID: 114788683299965638, guid: 127d605689d7b4ea2b008bc704ab961c,
       type: 2}
-    RequiredItems: 
+    RequiredItems: 02000000
     PrePlacedObjects:
     - Position: {x: 3, y: 0}
       ItemOrientation: 3
-      ItemType: 5
-    RulesToAdd: []
+      ItemType: 1
+    RulesToAdd:
+    - {fileID: 11400000, guid: 046eede9757ea4687afa40358689f416, type: 2}
     RulesToRemove: []
   - LevelSize: {x: 3, y: 2}
     PositionPrefab: {fileID: 114788683299965638, guid: 127d605689d7b4ea2b008bc704ab961c,
       type: 2}
-    RequiredItems: 
+    RequiredItems: 0200000002000000
     PrePlacedObjects:
     - Position: {x: 0, y: -1}
       ItemOrientation: 0
