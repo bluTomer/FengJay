@@ -11,13 +11,19 @@ namespace Scripts
             PlacingObject,
         }
         
-        public Camera Camera;
+        public Camera camera;
         public LayerMask RaycastHitMask;
         public ControlMode CurrentMode;
         public Item ItemPrefab;
-        public Room Room;
-
+        
+        private Room room;
         private Item itemBeingPlaced;
+
+        public void Initialize(Room room, Camera camera)
+        {
+            this.room = room;
+            this.camera = camera;
+        }
         
         private void Update()
         {
@@ -29,21 +35,36 @@ namespace Scripts
         {
             if (CurrentMode == ControlMode.None && Input.GetKeyDown(KeyCode.P))
             {
-                itemBeingPlaced = CreateItem();
-                CurrentMode = ControlMode.PlacingObject;
+                StartPlacing(CreateItem());
             }
 
             if (CurrentMode == ControlMode.PlacingObject && Input.GetKeyDown(KeyCode.Escape))
             {
-                CurrentMode = ControlMode.None;
-                itemBeingPlaced.DestroyGameObject();
-                itemBeingPlaced = null;
+                StopPlacing();
             }
             
             if (CurrentMode == ControlMode.PlacingObject)
             {
                 TryPlacingObject();
             }
+        }
+
+        public void StartPlacing(Item item)
+        {
+            if (CurrentMode == ControlMode.PlacingObject)
+            {
+                StopPlacing();
+            }
+            
+            itemBeingPlaced = item;
+            CurrentMode = ControlMode.PlacingObject;
+        }
+
+        public void StopPlacing()
+        {
+            CurrentMode = ControlMode.None;
+            itemBeingPlaced.DestroyGameObject();
+            itemBeingPlaced = null;
         }
 
         private void CheckRotate()
@@ -100,7 +121,7 @@ namespace Scripts
                     {
                         var rotatedPos = itemBeingPlaced.GetRotatedPoint(new Vector2Int(x, y));
                         
-                        if (!Room.CanPlaceAtPosition(position.Position.x + rotatedPos.x, position.Position.y + rotatedPos.y))
+                        if (!room.CanPlaceAtPosition(position.Position.x + rotatedPos.x, position.Position.y + rotatedPos.y))
                         {
                             // Position not available
                             itemBeingPlaced.SetPlacingStatus(Item.PlacingStatus.UnAvailable);
@@ -125,7 +146,7 @@ namespace Scripts
                         if (itemBeingPlaced.ExistsInPos(x, y))
                         {
                             var rotatedPos = itemBeingPlaced.GetRotatedPoint(new Vector2Int(x, y));
-                            var objectPosition = Room.GetPositionAt(position.Position.x + rotatedPos.x, position.Position.y + rotatedPos.y);
+                            var objectPosition = room.GetPositionAt(position.Position.x + rotatedPos.x, position.Position.y + rotatedPos.y);
                             objectPosition.Item = itemBeingPlaced;
                         }
                     }
@@ -146,7 +167,7 @@ namespace Scripts
         
         private Hit PointerRaycast()
         {
-            var ray = Camera.ScreenPointToRay(Input.mousePosition);
+            var ray = camera.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
             
             if (Physics.Raycast(ray, out hit, float.MaxValue, RaycastHitMask))

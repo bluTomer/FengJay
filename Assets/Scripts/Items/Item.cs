@@ -1,5 +1,5 @@
 ﻿using System;
-using DefaultNamespace;
+using Scripts.Game;
 using UnityEngine;
 
 namespace Scripts.Items
@@ -27,8 +27,6 @@ namespace Scripts.Items
         
         [SerializeField] private Transform pivot;
         [SerializeField] private Renderer renderer;
-        [SerializeField] private Color unavailablePlacingColor;
-        [SerializeField] private Color availablePlacingColor;
         [SerializeField] private Orientation orientation;
         [SerializeField] private Bool5x5 size;
         [SerializeField] private ItemType type;
@@ -130,10 +128,10 @@ namespace Scripts.Items
                     renderer.material.color = originalColor;
                     break;
                 case PlacingStatus.UnAvailable:
-                    renderer.material.color = unavailablePlacingColor;
+                    renderer.material.color = GameSystem.Config.UnavailablePlacingColor;
                     break;
                 case PlacingStatus.Available:
-                    renderer.material.color = availablePlacingColor;
+                    renderer.material.color = GameSystem.Config.AvailablePlacingColor;
                     break;
                 default:
                     throw new ArgumentOutOfRangeException("status", status, null);

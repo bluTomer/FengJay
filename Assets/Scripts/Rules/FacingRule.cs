@@ -1,4 +1,3 @@
-using DefaultNamespace;
 using Scripts.Items;
 using UnityEngine;
 

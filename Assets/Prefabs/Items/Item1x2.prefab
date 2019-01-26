@@ -168,8 +168,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pivot: {fileID: 4279501294277508}
   renderer: {fileID: 23222054753230308}
-  unavailablePlacingColor: {r: 0.9843137, g: 0.007843138, b: 0.02745098, a: 0.69803923}
-  availablePlacingColor: {r: 0.12941177, g: 1, b: 0.5019608, a: 0.69803923}
   orientation: 0
   size:
     Size: 5
@@ -179,3 +177,4 @@ MonoBehaviour:
     - Row: 0000000000
     - Row: 0000000000
     - Row: 0000000000
+  type: 0
