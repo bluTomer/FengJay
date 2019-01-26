@@ -12,6 +12,20 @@ MonoBehaviour:
   m_Name: RuleSet
   m_EditorClassIdentifier: 
   Levels:
-  - RulesToAdd:
-    - {fileID: 11400000, guid: 687aaa2b6622844e68129df6d0f29b65, type: 2}
+  - LevelSize: {x: 3, y: 1}
+    Objects:
+    - Position: {x: 3, y: 0}
+      ItemOrientation: 3
+      ItemType: 5
+    RulesToAdd: []
+    RulesToRemove: []
+  - LevelSize: {x: 3, y: 2}
+    Objects:
+    - Position: {x: 0, y: -1}
+      ItemOrientation: 0
+      ItemType: 5
+    - Position: {x: 3, y: 1}
+      ItemOrientation: 3
+      ItemType: 5
+    RulesToAdd: []
     RulesToRemove: []

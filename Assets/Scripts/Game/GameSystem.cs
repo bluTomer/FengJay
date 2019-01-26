@@ -54,7 +54,7 @@ namespace Scripts.Game
 
         public void StartGame()
         {
-            CurrentLevelIndex = 0;
+            CurrentLevelIndex = 1;
             StartLevel(CurrentLevelIndex);
         }
 
@@ -69,7 +69,7 @@ namespace Scripts.Game
 
         public void LoadLevel(Level level)
         {
-            room.SetupNewRoom();
+            room.SetupNewRoom(level);
             
             foreach (var rule in level.RulesToAdd)
             {

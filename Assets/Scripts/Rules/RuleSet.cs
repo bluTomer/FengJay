@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Scripts.Items;
 using UnityEngine;
 
 namespace Scripts.Rules
@@ -13,7 +14,17 @@ namespace Scripts.Rules
     [Serializable]
     public class Level
     {
+        public Vector2Int LevelSize; // WithoutBorder
+        public List<LevelObjectDefinition> Objects;
         public List<BaseRule> RulesToAdd;
         public List<BaseRule> RulesToRemove;
+    }
+
+    [Serializable]
+    public class LevelObjectDefinition
+    {
+        public Vector2Int Position;
+        public Orientation ItemOrientation;
+        public ItemType ItemType;
     }
 }
