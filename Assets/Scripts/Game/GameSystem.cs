@@ -8,6 +8,8 @@ namespace Scripts.Game
 {
     public class GameSystem : MonoBehaviour
     {
+        public event Action<int> NewLevelStartingEvent;
+        
         public static Config Config { get; private set; }
         
         [SerializeField] private string configName;
@@ -16,8 +18,8 @@ namespace Scripts.Game
         private RuleChecker ruleChecker;
         private RuleSet ruleSet;
         private ItemSet itemSet;
-        private Room room;
         private Camera camera;
+        private Room room;
         private HUD hud;
         
         public int CurrentLevelIndex { get; private set; }
@@ -40,18 +42,27 @@ namespace Scripts.Game
 
             controller.Initialize(room, camera);
             hud.Initialize(this);
-            
+
+            AddListeners();
             StartGame();
+        }
+
+        private void AddListeners()
+        {
+            controller.ItemPlacedEvent += OnItemPlacedEvent;
         }
 
         public void StartGame()
         {
             CurrentLevelIndex = 0;
-            SetupLevel(CurrentLevelIndex);
+            StartLevel(CurrentLevelIndex);
         }
 
-        public void SetupLevel(int levelIndex)
+        public void StartLevel(int levelIndex)
         {
+            if (NewLevelStartingEvent != null)
+                NewLevelStartingEvent(levelIndex);
+            
             var level = ruleSet.Levels.ElementAt(levelIndex);
             LoadLevel(level);
         }
@@ -76,6 +87,19 @@ namespace Scripts.Game
             var prefab = itemSet.GetItemPrefab(itemType);
             var item = Instantiate(prefab);
             controller.StartPlacing(item);
+        }
+
+        private void OnItemPlacedEvent(Item item)
+        {
+            BaseRule failedRule;
+            if (!ruleChecker.EvaluateRules(out failedRule))
+            {
+                // TODO: Notify failed rule
+            }
+            else
+            {
+                // TODO: Notify success
+            }
         }
     }
 }

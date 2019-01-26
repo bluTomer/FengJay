@@ -1,3 +1,4 @@
+using System;
 using Scripts.Items;
 using UnityEngine;
 
@@ -10,6 +11,9 @@ namespace Scripts
             None,
             PlacingObject,
         }
+
+        public event Action<Item> ItemPlacingEvent;
+        public event Action<Item> ItemPlacedEvent;
         
         public Camera camera;
         public LayerMask RaycastHitMask;
@@ -133,11 +137,13 @@ namespace Scripts
             
             // Object can be placed
             itemBeingPlaced.SetPosition(position);
-            
             itemBeingPlaced.SetPlacingStatus(Item.PlacingStatus.Available);
 
             if (Input.GetMouseButtonDown(0))
             {
+                if (ItemPlacingEvent != null)
+                    ItemPlacingEvent(itemBeingPlaced);
+                
                 // Place item
                 for (int x = 0; x < Item.MAX_SIZE; x++)
                 {
@@ -147,13 +153,16 @@ namespace Scripts
                         {
                             var rotatedPos = itemBeingPlaced.GetRotatedPoint(new Vector2Int(x, y));
                             var objectPosition = room.GetPositionAt(position.Position.x + rotatedPos.x, position.Position.y + rotatedPos.y);
-                            objectPosition.Item = itemBeingPlaced;
+                            objectPosition.SetItem(itemBeingPlaced);
                         }
                     }
                 }
                 
                 itemBeingPlaced.SetPlacingStatus(Item.PlacingStatus.None);
                 CurrentMode = ControlMode.None;
+                
+                if (ItemPlacedEvent != null)
+                    ItemPlacedEvent(itemBeingPlaced);
             }
 
             return true;

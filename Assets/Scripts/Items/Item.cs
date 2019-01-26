@@ -1,4 +1,5 @@
 ﻿using System;
+using Boo.Lang;
 using Scripts.Game;
 using UnityEngine;
 
@@ -135,6 +136,70 @@ namespace Scripts.Items
                     break;
                 default:
                     throw new ArgumentOutOfRangeException("status", status, null);
+            }
+        }
+
+        public List<RoomPosition> GetItemPositions(Room room)
+        {
+            var result = new List<RoomPosition>();
+            
+            room.TraversePositions(delegate(RoomPosition position)
+            {
+                if (position == null)
+                    return;
+
+                if (!position.IsTaken)
+                    return;
+
+                if (position.Item == this)
+                    result.Add(position);
+            });
+
+            return result;
+        }
+        
+        public List<RoomPosition> GetPositionsInFront(Room room)
+        {
+            var result = new List<RoomPosition>();
+            
+            var itemPositions = GetItemPositions(room);
+            var advance = GetProgressDirection();
+
+            foreach (var itemPosition in itemPositions)
+            {
+                var pos = itemPosition;
+                
+                while (pos != null)
+                {
+                    pos = room.GetPositionAt(pos.Position.x + advance.x, pos.Position.y + advance.y);
+
+                    if (pos == null)
+                        continue;
+                        
+                    if (pos.IsTaken && pos.Item == this)
+                        continue;
+
+                    result.Add(pos);
+                } 
+            }
+
+            return result;
+        }
+
+        private Vector2Int GetProgressDirection()
+        {
+            switch (orientation)
+            {
+                case Orientation.Forward:
+                    return Vector2Int.right;
+                case Orientation.Right:
+                    return Vector2Int.down;
+                case Orientation.Back:
+                    return Vector2Int.left;
+                case Orientation.Left:
+                    return Vector2Int.up;
+                default:
+                    throw new ArgumentOutOfRangeException();
             }
         }
     }

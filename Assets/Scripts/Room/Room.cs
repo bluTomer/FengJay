@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System;
 using Scripts.Items;
 using UnityEngine;
 
@@ -67,6 +66,18 @@ namespace Scripts
             }
 
             return null;
+        }
+
+        public void TraversePositions(Action<RoomPosition> invokeOnPosition)
+        {
+            for (int x = 0; x < Size.x; x++)
+            {
+                for (int y = 0; y < Size.y; y++)
+                {
+                    var roomPos = GetPositionAt(x, y);
+                    invokeOnPosition(roomPos);
+                }
+            }
         }
 
         public RoomPosition GetPositionAt(int x, int y)
