@@ -35,7 +35,7 @@ namespace Scripts.Rules
 
         public override string GetRuleAddedDescription()
         {
-            throw new System.NotImplementedException();
+            return string.Format("The path between all {0}s must be clear.", targetItemType);
         }
 
         public override string GetRuleRemovedDescription()

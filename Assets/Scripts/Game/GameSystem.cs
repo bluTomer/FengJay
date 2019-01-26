@@ -10,7 +10,7 @@ namespace Scripts.Game
 {
     public class GameSystem : MonoBehaviour
     {
-        public event Action<int> NewLevelStartedEvent;
+        public event Action<Level> NewLevelStartedEvent;
         public event Action<ItemType> NewItemPlacedEvent;
         public event Action<BaseRule> LevelFailedEvent;
         public event Action LevelCompletedEvent;
@@ -81,7 +81,7 @@ namespace Scripts.Game
             LoadLevel(level);
             
             if (NewLevelStartedEvent != null)
-                NewLevelStartedEvent(levelIndex);
+                NewLevelStartedEvent(level);
         }
 
         public void LoadLevel(Level level)
@@ -121,6 +121,7 @@ namespace Scripts.Game
                 
                 SoundPlayer.Instance.PlaySound(Config.FailedRuleSound);
                 Debug.Log("Rule Failed! " + failedRule.name);
+                StartCoroutine(StartLevel());
             }
             else
             {
@@ -132,7 +133,8 @@ namespace Scripts.Game
                         LevelCompletedEvent();
                     
                     SoundPlayer.Instance.PlaySound(Config.LevelSuccessSound);
-                    StartCoroutine(StartNextLevel());
+                    CurrentLevelIndex++;
+                    StartCoroutine(StartLevel());
                     return;
                 }
                 
@@ -140,10 +142,9 @@ namespace Scripts.Game
             }
         }
 
-        private IEnumerator StartNextLevel()
+        private IEnumerator StartLevel()
         {
-            yield return new WaitForSeconds(2);
-            CurrentLevelIndex++;
+            yield return new WaitForSeconds(1);
             StartLevel(CurrentLevelIndex);
         }
     }
