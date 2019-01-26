@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Scripts.Rules
 {
-    [CreateAssetMenu(menuName = "Rules/Should Be In Front Of")]
+    [CreateAssetMenu(menuName = "Rule/Should Be In Front Of")]
     public class ShouldBeInFrontOfRule : BaseRule
     {
         [SerializeField] private ItemType TestedItem;

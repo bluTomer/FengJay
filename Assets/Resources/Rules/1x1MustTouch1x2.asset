@@ -8,10 +8,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4c323ffe20fb4ad9a7c5bb06f02f88f2, type: 3}
-  m_Name: RuleSet
+  m_Script: {fileID: 11500000, guid: 243847a9e9794b9c8e05c5125d375d44, type: 3}
+  m_Name: 1x1MustTouch1x2
   m_EditorClassIdentifier: 
-  Levels:
-  - RulesToAdd:
-    - {fileID: 11400000, guid: 687aaa2b6622844e68129df6d0f29b65, type: 2}
-    RulesToRemove: []
+  firstItemType: 0
+  secondItemType: 1

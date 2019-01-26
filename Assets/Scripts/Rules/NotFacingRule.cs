@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Scripts.Rules
 {
-    [CreateAssetMenu(menuName = "Rules/Not Facing Orientation")]
+    [CreateAssetMenu(menuName = "Rule/Not Facing Orientation")]
     public class NotFacingRule : BaseRule
     {
         public ItemType ItemType;

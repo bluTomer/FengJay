@@ -163,7 +163,7 @@ namespace Scripts.Items
             var result = new List<RoomPosition>();
             
             var itemPositions = GetItemPositions(room);
-            var advance = GetProgressDirection();
+            var advance = GetProgressDirection(orientation);
 
             foreach (var itemPosition in itemPositions)
             {
@@ -186,9 +186,44 @@ namespace Scripts.Items
             return result;
         }
 
-        private Vector2Int GetProgressDirection()
+        public List<RoomPosition> GetSurroundingPositions(Room room)
         {
-            switch (orientation)
+            var result = new List<RoomPosition>();
+            var itemPositions = GetItemPositions(room);
+
+            foreach (var itemPosition in itemPositions)
+            {
+                // Go in all 4 directions until you get a position that is not the item
+                for (int i = 0; i < 4; i++)
+                {
+                    var advance = GetProgressDirection((Orientation) i);
+                    var pos = itemPosition;
+                
+                    while (pos != null)
+                    {
+                        pos = room.GetPositionAt(pos.Position.x + advance.x, pos.Position.y + advance.y);
+
+                        if (pos == null)
+                            continue;
+
+                        if (result.Contains(pos))
+                            break;
+                        
+                        if (pos.IsTaken && pos.Item == this)
+                            continue;
+                        
+                        result.Add(pos);
+                        break;
+                    } 
+                }
+            }
+
+            return result;
+        }
+        
+        private Vector2Int GetProgressDirection(Orientation direction)
+        {
+            switch (direction)
             {
                 case Orientation.Right:
                     return new Vector2Int(0, 1);
