@@ -5,6 +5,7 @@ using System.Linq;
 using Scripts.Items;
 using Scripts.Rules;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Scripts.Game
 {
@@ -12,8 +13,6 @@ namespace Scripts.Game
     {
         public event Action<Level> NewLevelStartedEvent;
         public event Action<ItemType> NewItemPlacedEvent;
-        public event Action<BaseRule> LevelFailedEvent;
-        public event Action LevelCompletedEvent;
         
         public static Config Config { get; private set; }
         
@@ -54,12 +53,25 @@ namespace Scripts.Game
             hud.Initialize(this);
 
             AddListeners();
-            StartGame();
         }
 
         private void AddListeners()
         {
             controller.ItemPlacedEvent += OnItemPlacedEvent;
+            hud.RestartGameEvent += OnRestartGameEvent;
+            hud.StartGameEvent += OnStartGameEvent;
+        }
+        
+        private void RemoveListeners()
+        {
+            controller.ItemPlacedEvent -= OnItemPlacedEvent;
+            hud.RestartGameEvent -= OnRestartGameEvent;
+            hud.StartGameEvent -= OnStartGameEvent;
+        }
+
+        private void OnStartGameEvent()
+        {
+            StartGame();
         }
 
         public void StartGame()
@@ -114,12 +126,12 @@ namespace Scripts.Game
             BaseRule failedRule;
             if (!ruleChecker.EvaluateRules(out failedRule))
             {
-                if (LevelFailedEvent != null)
-                    LevelFailedEvent(failedRule);
-                
-                SoundPlayer.Instance.PlaySound(Config.FailedRuleSound);
-                Debug.Log("Rule Failed! " + failedRule.name);
-                StartCoroutine(StartLevel());
+                hud.OnLevelFailedEvent(failedRule, delegate
+                {
+                    SoundPlayer.Instance.PlaySound(Config.FailedRuleSound);
+                    Debug.Log("Rule Failed! " + failedRule.name);
+                    StartLevel(CurrentLevelIndex);
+                });
             }
             else
             {
@@ -131,29 +143,32 @@ namespace Scripts.Game
                 if (RequiredItemsForLevel.Count > 0)
                 {
                     SoundPlayer.Instance.PlaySound(Config.PlaceSound);
+                    hud.ShowGoodPlacement();
                     return;
                 }
                 
-                if (LevelCompletedEvent != null)
-                    LevelCompletedEvent();
-
                 SoundPlayer.Instance.PlaySound(Config.LevelSuccessSound);
-                CurrentLevelIndex++;
 
                 if (CurrentLevelIndex == levelSet.Levels.Count)
                 {
-                    // TODO: Win Game
-                    return;
+                    hud.OnWinGame();
                 }
-
-                StartCoroutine(StartLevel());
+                else
+                {
+                    hud.SetJayText(true, 4, delegate
+                    {
+                        CurrentLevelIndex++;
+                        StartLevel(CurrentLevelIndex);
+                    }, "NICE VIBES!");
+                }
             }
         }
 
-        private IEnumerator StartLevel()
+        private void OnRestartGameEvent()
         {
-            yield return new WaitForSeconds(1);
-            StartLevel(CurrentLevelIndex);
+            RemoveListeners();
+            Config = null;
+            SceneManager.LoadScene(0);
         }
     }
 }

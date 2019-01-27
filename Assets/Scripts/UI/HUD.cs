@@ -10,9 +10,15 @@ using UnityEngine.UI;
 
 public class HUD : MonoBehaviour
 {
+    public event Action RestartGameEvent;
+    public event Action StartGameEvent;
+    
     [SerializeField] private Transform buttonsParent;
     [SerializeField] private JayAnimator jayAnimator;
-    [SerializeField] private Button buttonPrefab;
+    [SerializeField] private Button plantButtonPrefab;
+    [SerializeField] private Button SofaButtonPrefab;
+    [SerializeField] private GameObject GoodPlacementTag;
+    [SerializeField] private GameObject WinScreen;
 
     private GameSystem gameSystem;
     private GraphicRaycaster raycaster;
@@ -25,10 +31,25 @@ public class HUD : MonoBehaviour
 
         gameSystem.NewLevelStartedEvent += OnNewLevelStartedEvent;
         gameSystem.NewItemPlacedEvent += OnNewItemPlacedEvent;
-        gameSystem.LevelFailedEvent += OnLevelFailedEvent;
-        gameSystem.LevelCompletedEvent += OnLevelCompletedEvent;
     }
 
+    private void OnDestroy()
+    {
+        gameSystem.NewLevelStartedEvent -= OnNewLevelStartedEvent;
+        gameSystem.NewItemPlacedEvent -= OnNewItemPlacedEvent;
+    }
+
+    public void OnWinGame()
+    {
+        WinScreen.SetActive(true);
+    }
+
+    public void OnStartGameButtonClicked()
+    {
+        if (StartGameEvent != null)
+            StartGameEvent();
+    }
+    
     private void OnNewLevelStartedEvent(Level level)
     {
         RecreateNeededButtons();
@@ -47,9 +68,9 @@ public class HUD : MonoBehaviour
         RecreateNeededButtons();
     }
 
-    private void OnLevelFailedEvent(BaseRule failedRule)
+    public void OnLevelFailedEvent(BaseRule failedRule, Action callback)
     {
-        SetJayText(false, 4, null, failedRule.GetRuleAddedDescription());
+        SetJayText(false, 4, callback, failedRule.GetRuleAddedDescription());
     }
 
     private void OnLevelCompletedEvent()
@@ -76,7 +97,20 @@ public class HUD : MonoBehaviour
 
     private void CreateButton(ItemType itemType)
     {
-        var button = Instantiate(buttonPrefab, buttonsParent);
+        Button prefab;
+        switch (itemType)
+        {
+            case ItemType.Plant:
+                prefab = plantButtonPrefab;
+                break;
+            case ItemType.Sofa:
+                prefab = SofaButtonPrefab;
+                break;
+            default:
+                throw new ArgumentOutOfRangeException("itemType", itemType, null);
+        }
+        
+        var button = Instantiate(prefab, buttonsParent);
         button.onClick.AddListener(delegate
         {
             OnButtonClicked(itemType);
@@ -109,6 +143,33 @@ public class HUD : MonoBehaviour
 
         
         jayCoroutine = StartCoroutine(RunJayText(timePerText, uiDone, texts));
+    }
+
+    private Coroutine GoodPlacement;
+    
+    public void ShowGoodPlacement()
+    {
+        if (GoodPlacement != null)
+        {
+            StopCoroutine(GoodPlacement);
+        }
+        
+        GoodPlacementTag.SetActive(true);
+        GoodPlacement = StartCoroutine(HideGoodPlacement());
+    }
+
+    private IEnumerator HideGoodPlacement()
+    {
+        yield return new WaitForSeconds(1);
+        GoodPlacementTag.SetActive(false);
+
+        GoodPlacement = null;
+    }
+
+    public void OnRestartButtonClicked()
+    {
+        if (RestartGameEvent != null)
+            RestartGameEvent();
     }
     
     private IEnumerator RunJayText(float timePerText, Action uiDone, string[] texts)
