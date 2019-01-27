@@ -1,19 +1,14 @@
 using System;
 using System.Collections.Generic;
 using Scripts.Items;
+using Scripts.Rules;
 using UnityEngine;
 using UnityEngine.Serialization;
 
-namespace Scripts.Rules
+namespace Scripts.Game
 {
-    [CreateAssetMenu(menuName = "Rule Set")]
-    public class RuleSet : ScriptableObject
-    {
-        public List<Level> Levels;
-    }
-
-    [Serializable]
-    public class Level
+    [CreateAssetMenu(menuName = "Level")]
+    public class Level : ScriptableObject
     {
         public Vector2Int LevelSize; // WithoutBorder
         public RoomPosition PositionPrefab;

@@ -75,7 +75,7 @@ namespace Scripts
 
                     if (x == 0)
                     {
-                        var item = Instantiate(GameSystem.Config.ItemSet.GetItemPrefab(ItemType.Blocked));
+                        var item = Instantiate(GameSystem.Config.ItemSet.GetItemPrefab(ItemType.Fence));
                         var position = Positions[x, y];
                         position.SetItem(item);
                         item.SetPosition(position);
@@ -94,7 +94,7 @@ namespace Scripts
                     
                     if (y == 0)
                     {
-                        var item = Instantiate(GameSystem.Config.ItemSet.GetItemPrefab(ItemType.Blocked));
+                        var item = Instantiate(GameSystem.Config.ItemSet.GetItemPrefab(ItemType.Fence));
                         var position = Positions[x, y];
                         position.SetItem(item);
                         item.SetPosition(position);
@@ -113,10 +113,11 @@ namespace Scripts
                     
                     if (x == Size.x - 1)
                     {
-                        var item = Instantiate(GameSystem.Config.ItemSet.GetItemPrefab(ItemType.Blocked));
+                        var item = Instantiate(GameSystem.Config.ItemSet.GetItemPrefab(ItemType.Fence));
                         var position = Positions[x, y];
                         position.SetItem(item);
                         item.SetPosition(position);
+                        item.HideModel();
                         prePositionedItems.Add(item);
                         for (int i = 0; i < (int)Orientation.Up; i++)
                         {
@@ -132,10 +133,11 @@ namespace Scripts
                     
                     if (y == Size.y - 1)
                     {
-                        var item = Instantiate(GameSystem.Config.ItemSet.GetItemPrefab(ItemType.Blocked));
+                        var item = Instantiate(GameSystem.Config.ItemSet.GetItemPrefab(ItemType.Fence));
                         var position = Positions[x, y];
                         position.SetItem(item);
                         item.SetPosition(position);
+                        item.HideModel();
                         prePositionedItems.Add(item);
                         for (int i = 0; i < (int)Orientation.Left; i++)
                         {

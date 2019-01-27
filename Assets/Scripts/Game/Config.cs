@@ -8,7 +8,7 @@ namespace Scripts.Game
     public class Config : ScriptableObject
     {
         public ItemSet ItemSet;
-        public RuleSet RuleSet;
+        public LevelSet levelSet;
 
         public Controller ControllerPrefab;
         public Room RoomPrefab;

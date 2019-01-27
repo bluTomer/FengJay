@@ -90,10 +90,12 @@ public class HUD : MonoBehaviour
 
     public void SetJayText(bool isHappy, float timePerText, Action uiDone, params string[] texts)
     {
+        if (texts == null || texts.Length == 0)
+            return;
+        
         if (jayCoroutine != null)
         {
             return;
-            StopCoroutine(jayCoroutine);
         }
         
         jayAnimator.SetHappy(isHappy);

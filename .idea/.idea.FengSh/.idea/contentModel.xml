@@ -17,6 +17,8 @@
           <e p="Game" t="Include">
             <e p="Config.cs" t="Include" />
             <e p="GameSystem.cs" t="Include" />
+            <e p="Level.cs" t="Include" />
+            <e p="LevelSet.cs" t="Include" />
             <e p="SoundPlayer.cs" t="Include" />
           </e>
           <e p="Items" t="Include">
@@ -43,7 +45,6 @@
             <e p="MustTouchRule.cs" t="Include" />
             <e p="NotFacingRule.cs" t="Include" />
             <e p="RuleChecker.cs" t="Include" />
-            <e p="RuleSet.cs" t="Include" />
             <e p="ShouldBeInFrontOfRule.cs" t="Include" />
           </e>
           <e p="UI" t="Include">

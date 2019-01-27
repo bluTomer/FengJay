@@ -14,7 +14,7 @@ MonoBehaviour:
   Definitions:
   - Type: 0
     Prefab: {fileID: 114858220926885400, guid: f6aba9acd10fb4318af496adfa9aba72, type: 2}
-  - Type: 1
+  - Type: 4
     Prefab: {fileID: 114093973352382364, guid: a5f2ca9ccdb69460b83f88bdb705611d, type: 2}
   - Type: 2
     Prefab: {fileID: 114314967555611042, guid: 7a451b43149c247b09bf54a37b077122, type: 2}

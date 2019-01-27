@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Name: Config
   m_EditorClassIdentifier: 
   ItemSet: {fileID: 11400000, guid: 5feb77fc54e9a4091a267321dc544ad7, type: 2}
-  RuleSet: {fileID: 11400000, guid: 8199d0ec48f604813a5cadfdeb155943, type: 2}
+  levelSet: {fileID: 11400000, guid: 8199d0ec48f604813a5cadfdeb155943, type: 2}
   ControllerPrefab: {fileID: 114668726866602912, guid: 915b91a697fe7436fb42db237e398933,
     type: 2}
   RoomPrefab: {fileID: 114116098693828128, guid: e5a81895af3ea4380b65bae6bdc7963e,

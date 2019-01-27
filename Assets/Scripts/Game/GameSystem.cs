@@ -21,7 +21,7 @@ namespace Scripts.Game
 
         private Controller controller;
         private RuleChecker ruleChecker;
-        private RuleSet ruleSet;
+        private LevelSet levelSet;
         private ItemSet itemSet;
         private Camera camera;
         private Room room;
@@ -39,7 +39,7 @@ namespace Scripts.Game
             
             Config = Resources.Load<Config>("Config/" + configName);
             camera = FindObjectOfType<Camera>();
-            ruleSet = Config.RuleSet;
+            levelSet = Config.levelSet;
             itemSet = Config.ItemSet;
 
             controller = Instantiate(Config.ControllerPrefab);
@@ -69,7 +69,7 @@ namespace Scripts.Game
 
         public void StartLevel(int levelIndex)
         {
-            var level = ruleSet.Levels.ElementAt(levelIndex);
+            var level = levelSet.Levels.ElementAt(levelIndex);
             RequiredItemsForLevel = new List<ItemType>(level.RequiredItems);
             
             foreach (var placedItem in placedItems)

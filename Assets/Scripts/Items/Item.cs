@@ -30,6 +30,7 @@ namespace Scripts.Items
         [SerializeField] private Orientation orientation;
         [SerializeField] private ItemType type;
         [SerializeField] private Bool5x5 size;
+        [SerializeField] private GameObject Model;
 
         private Renderer[] renderers;
         private Color[] originalColors;
@@ -126,6 +127,14 @@ namespace Scripts.Items
                     renderer.enabled = false;
                 }
                 showing = false;
+            }
+        }
+
+        public void HideModel()
+        {
+            if (Model != null)
+            {
+                Model.SetActive(false);
             }
         }
 
