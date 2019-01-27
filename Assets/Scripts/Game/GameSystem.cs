@@ -18,6 +18,7 @@ namespace Scripts.Game
         public static Config Config { get; private set; }
         
         [SerializeField] private string configName;
+        [SerializeField] private int StartingLevel;
 
         private Controller controller;
         private RuleChecker ruleChecker;
@@ -63,7 +64,7 @@ namespace Scripts.Game
 
         public void StartGame()
         {
-            CurrentLevelIndex = 0;
+            CurrentLevelIndex = StartingLevel;
             StartLevel(CurrentLevelIndex);
         }
 
@@ -110,9 +111,6 @@ namespace Scripts.Game
         {
             placedItems.Add(item);
             
-            if (NewItemPlacedEvent != null)
-                NewItemPlacedEvent(item.Type);
-            
             BaseRule failedRule;
             if (!ruleChecker.EvaluateRules(out failedRule))
             {
@@ -126,19 +124,29 @@ namespace Scripts.Game
             else
             {
                 RequiredItemsForLevel.Remove(item.Type);
+                
+                if (NewItemPlacedEvent != null)
+                    NewItemPlacedEvent(item.Type);
 
-                if (RequiredItemsForLevel.Count == 0)
+                if (RequiredItemsForLevel.Count > 0)
                 {
-                    if (LevelCompletedEvent != null)
-                        LevelCompletedEvent();
-                    
-                    SoundPlayer.Instance.PlaySound(Config.LevelSuccessSound);
-                    CurrentLevelIndex++;
-                    StartCoroutine(StartLevel());
+                    SoundPlayer.Instance.PlaySound(Config.PlaceSound);
                     return;
                 }
                 
-                SoundPlayer.Instance.PlaySound(Config.PlaceSound);
+                if (LevelCompletedEvent != null)
+                    LevelCompletedEvent();
+
+                SoundPlayer.Instance.PlaySound(Config.LevelSuccessSound);
+                CurrentLevelIndex++;
+
+                if (CurrentLevelIndex == levelSet.Levels.Count)
+                {
+                    // TODO: Win Game
+                    return;
+                }
+
+                StartCoroutine(StartLevel());
             }
         }
 

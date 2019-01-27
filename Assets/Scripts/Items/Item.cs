@@ -31,6 +31,7 @@ namespace Scripts.Items
         [SerializeField] private ItemType type;
         [SerializeField] private Bool5x5 size;
         [SerializeField] private GameObject Model;
+        [SerializeField] private GameObject ModelHide;
 
         private Renderer[] renderers;
         private Color[] originalColors;
@@ -134,7 +135,6 @@ namespace Scripts.Items
         {
             if (Model != null)
             {
-//                Model.SetActive(false);
                 var children = Model.GetComponentsInChildren<Renderer>();
                 foreach (var child in children)
                 {
@@ -144,6 +144,11 @@ namespace Scripts.Items
                     color.a = 0.6f;
                     material.color = color;
                 }
+            }
+
+            if (ModelHide != null) 
+            {
+                ModelHide.SetActive(false);
             }
         }
 

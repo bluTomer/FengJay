@@ -75,7 +75,7 @@ namespace Scripts
 
                     if (x == 0)
                     {
-                        var item = Instantiate(GameSystem.Config.ItemSet.GetItemPrefab(ItemType.Fence));
+                        var item = Instantiate(GameSystem.Config.ItemSet.GetItemPrefab(level.Blocker));
                         var position = Positions[x, y];
                         position.SetItem(item);
                         item.SetPosition(position);
@@ -94,7 +94,7 @@ namespace Scripts
                     
                     if (y == 0)
                     {
-                        var item = Instantiate(GameSystem.Config.ItemSet.GetItemPrefab(ItemType.Fence));
+                        var item = Instantiate(GameSystem.Config.ItemSet.GetItemPrefab(level.Blocker));
                         var position = Positions[x, y];
                         position.SetItem(item);
                         item.SetPosition(position);
@@ -113,7 +113,7 @@ namespace Scripts
                     
                     if (x == Size.x - 1)
                     {
-                        var item = Instantiate(GameSystem.Config.ItemSet.GetItemPrefab(ItemType.Fence));
+                        var item = Instantiate(GameSystem.Config.ItemSet.GetItemPrefab(level.Blocker));
                         var position = Positions[x, y];
                         position.SetItem(item);
                         item.SetPosition(position);
@@ -133,7 +133,7 @@ namespace Scripts
                     
                     if (y == Size.y - 1)
                     {
-                        var item = Instantiate(GameSystem.Config.ItemSet.GetItemPrefab(ItemType.Fence));
+                        var item = Instantiate(GameSystem.Config.ItemSet.GetItemPrefab(level.Blocker));
                         var position = Positions[x, y];
                         position.SetItem(item);
                         item.SetPosition(position);

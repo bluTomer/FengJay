@@ -15,6 +15,12 @@ MonoBehaviour:
   PositionPrefab: {fileID: 114788683299965638, guid: 127d605689d7b4ea2b008bc704ab961c,
     type: 2}
   RequiredItems: 020000000200000002000000
-  PrePlacedObjects: []
+  PrePlacedObjects:
+  - Position: {x: 1, y: -1}
+    ItemOrientation: 0
+    ItemType: 4
+  - Position: {x: 3, y: 1}
+    ItemOrientation: 3
+    ItemType: 4
   RulesToAdd: []
   RulesToRemove: []

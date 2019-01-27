@@ -11,6 +11,7 @@ namespace Scripts.Game
     public class Level : ScriptableObject
     {
         public Vector2Int LevelSize; // WithoutBorder
+        public ItemType Blocker;
         public RoomPosition PositionPrefab;
         public List<ItemType> RequiredItems;
         

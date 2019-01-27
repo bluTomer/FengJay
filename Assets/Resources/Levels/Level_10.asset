@@ -12,9 +12,16 @@ MonoBehaviour:
   m_Name: Level_10
   m_EditorClassIdentifier: 
   LevelSize: {x: 4, y: 3}
+  Blocker: 5
   PositionPrefab: {fileID: 114788683299965638, guid: 38009ebf935094d5698d1a04c7533167,
     type: 2}
   RequiredItems: 02000000030000000300000003000000
-  PrePlacedObjects: []
+  PrePlacedObjects:
+  - Position: {x: 4, y: 1}
+    ItemOrientation: 3
+    ItemType: 1
+  - Position: {x: 0, y: -1}
+    ItemOrientation: 0
+    ItemType: 1
   RulesToAdd: []
   RulesToRemove: []
