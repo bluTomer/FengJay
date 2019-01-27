@@ -68,6 +68,11 @@ public class HUD : MonoBehaviour
         RecreateNeededButtons();
     }
 
+    public void OnQuitButtonPressed()
+    {
+        Application.Quit();
+    }
+
     public void OnLevelFailedEvent(BaseRule failedRule, Action callback)
     {
         SetJayText(false, 4, callback, failedRule.GetRuleAddedDescription());

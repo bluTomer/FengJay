@@ -126,9 +126,9 @@ namespace Scripts.Game
             BaseRule failedRule;
             if (!ruleChecker.EvaluateRules(out failedRule))
             {
+                SoundPlayer.Instance.PlaySound(Config.FailedRuleSound);
                 hud.OnLevelFailedEvent(failedRule, delegate
                 {
-                    SoundPlayer.Instance.PlaySound(Config.FailedRuleSound);
                     Debug.Log("Rule Failed! " + failedRule.name);
                     StartLevel(CurrentLevelIndex);
                 });
