@@ -134,7 +134,16 @@ namespace Scripts.Items
         {
             if (Model != null)
             {
-                Model.SetActive(false);
+//                Model.SetActive(false);
+                var children = Model.GetComponentsInChildren<Renderer>();
+                foreach (var child in children)
+                {
+                    var material = child.material;
+                    
+                    var color = material.color;
+                    color.a = 0.6f;
+                    material.color = color;
+                }
             }
         }
 
