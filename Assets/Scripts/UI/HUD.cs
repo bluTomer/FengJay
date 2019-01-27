@@ -97,6 +97,11 @@ public class HUD : MonoBehaviour
         {
             return;
         }
+
+        if (!isHappy)
+        {
+            texts[0] += "\nTry Again...";
+        }
         
         jayAnimator.SetHappy(isHappy);
         jayAnimator.Show();

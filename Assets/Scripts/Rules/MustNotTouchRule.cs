@@ -44,7 +44,11 @@ namespace Scripts.Rules
             {
                 var itemType = itemTypes[index];
 
-                if (index != itemTypes.Count - 1)
+                if (itemTypes.Count == 1)
+                {
+                    sb.Append(itemType);
+                }
+                else if (index != itemTypes.Count - 1)
                 {
                     sb.Append(itemType + "s, ");
                 }
@@ -55,7 +59,7 @@ namespace Scripts.Rules
                 
             }
 
-            sb.Append(" must not touch each other.");
+            sb.Append(" must not be next to each other.");
             
             return sb.ToString();
         }

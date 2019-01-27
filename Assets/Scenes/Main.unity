@@ -277,7 +277,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   configName: Config
-  StartingLevel: 4
+  StartingLevel: 0
 --- !u!4 &509372885
 Transform:
   m_ObjectHideFlags: 0

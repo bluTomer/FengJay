@@ -77,13 +77,9 @@ namespace Scripts
             if (CurrentMode == ControlMode.None)
                 return;
             
-            if (Input.GetKeyDown(KeyCode.E))
+            if (Input.GetMouseButtonDown(1))
             {
                 itemBeingPlaced.RotateRight();
-            }
-            if (Input.GetKeyDown(KeyCode.Q))
-            {
-                itemBeingPlaced.RotateLeft();
             }
         }
 

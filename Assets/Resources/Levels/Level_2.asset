@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Name: Level_2
   m_EditorClassIdentifier: 
   LevelSize: {x: 3, y: 2}
+  Blocker: 0
   PositionPrefab: {fileID: 114788683299965638, guid: 127d605689d7b4ea2b008bc704ab961c,
     type: 2}
   RequiredItems: 0200000002000000
@@ -22,5 +23,6 @@ MonoBehaviour:
   - Position: {x: 3, y: 1}
     ItemOrientation: 3
     ItemType: 4
-  RulesToAdd: []
+  RulesToAdd:
+  - {fileID: 11400000, guid: f28502f3297834ff593ac75cf4f5ac99, type: 2}
   RulesToRemove: []

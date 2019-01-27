@@ -23,5 +23,8 @@ MonoBehaviour:
   - Position: {x: 3, y: 1}
     ItemOrientation: 3
     ItemType: 1
-  RulesToAdd: []
+  RulesToAdd:
+  - {fileID: 11400000, guid: 046eede9757ea4687afa40358689f416, type: 2}
+  - {fileID: 11400000, guid: 98cb525c50c3b44fd90b087ba8e53835, type: 2}
+  - {fileID: 11400000, guid: a761ec831952744f7ab20ceea9e0f040, type: 2}
   RulesToRemove: []

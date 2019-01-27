@@ -1045,7 +1045,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pivot: {fileID: 4020613742532240}
   orientation: 0
-  type: 0
+  type: 1
   size:
     Size: 5
     Rows:
@@ -1055,3 +1055,4 @@ MonoBehaviour:
     - Row: 0000000000
     - Row: 0000000000
   Model: {fileID: 1985708328527134}
+  ModelHide: {fileID: 0}

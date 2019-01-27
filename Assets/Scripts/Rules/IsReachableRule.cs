@@ -35,7 +35,7 @@ namespace Scripts.Rules
 
         public override string GetRuleAddedDescription()
         {
-            return string.Format("The path between all {0}s must be clear.", targetItemType);
+            return string.Format("The path between all {0}s must be clear, no diagonals!", targetItemType);
         }
 
         public override string GetRuleRemovedDescription()

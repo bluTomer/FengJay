@@ -30,7 +30,7 @@ public class FacingNotBlockedRule : BaseRule
         
     public override string GetRuleAddedDescription()
     {
-        return string.Format("All {0}s must not be blocked.", TestedItem);
+        return string.Format("All {0}s must not be blocked by another item.", TestedItem);
     }
         
     public override string GetRuleRemovedDescription()
