@@ -17,7 +17,7 @@ namespace Scripts
         private Transform positionParent;
         private List<Item> prePositionedItems = new List<Item>();
 
-        public void SetupNewRoom(Level level)
+        public void SetupNewRoom(Level level, int levelIndex)
         {
             // Increasing size by 1 to accomodate border tiles
             Size = level.LevelSize + (Vector2Int.one * 2);
@@ -66,6 +66,77 @@ namespace Scripts
                 }
             }
 
+            SetupOutsideLevel(level, levelIndex);
+
+            SetupBlockers(level, levelIndex);
+        }
+
+        private void SetupOutsideLevel(Level level, int levelIndex)
+        {
+            for (int y = -10; y < Size.y + 10; y++)
+            {
+                for (int x = 0; x > -10; x--)
+                {
+                    var position = Instantiate(level.PositionPrefab, positionParent);
+                    position.Position = new Vector2Int(-1, -1);
+                    position.transform.position = new Vector3(x * Resolution.x, transform.position.y, y * Resolution.y);
+                    var item = new Item();
+                    position.SetItem(item);
+                
+                    if (levelIndex > 5)
+                    {
+                        position.SwitchTile();
+                    }
+                }
+                
+                for (int x = Size.x - 1; x < Size.x + 10; x++)
+                {
+                    var position = Instantiate(level.PositionPrefab, positionParent);
+                    position.Position = new Vector2Int(-1, -1);
+                    position.transform.position = new Vector3(x * Resolution.x, transform.position.y, y * Resolution.y);
+                    var item = new Item();
+                    position.SetItem(item);
+
+                    if (levelIndex > 5)
+                    {
+                        position.SwitchTile();
+                    }
+                }
+            }
+            
+            for (int x = 0; x < Size.x; x++)
+            {
+                for (int y = 0; y > -10; y--)
+                {
+                    var position = Instantiate(level.PositionPrefab, positionParent);
+                    position.Position = new Vector2Int(-1, -1);
+                    position.transform.position = new Vector3(x * Resolution.x, transform.position.y, y * Resolution.y);
+                    var item = new Item();
+                    position.SetItem(item);
+                    
+                    if (levelIndex > 5)
+                    {
+                        position.SwitchTile();
+                    }
+                }
+                for (int y = Size.y - 1; y < Size.y + 10; y++)
+                {
+                    var position = Instantiate(level.PositionPrefab, positionParent);
+                    position.Position = new Vector2Int(-1, -1);
+                    position.transform.position = new Vector3(x * Resolution.x, transform.position.y, y * Resolution.y);
+                    var item = new Item();
+                    position.SetItem(item);
+
+                    if (levelIndex > 5)
+                    {
+                        position.SwitchTile();
+                    }
+                }
+            }
+        }
+
+        private void SetupBlockers(Level level, int levelIndex)
+        {
             for (int x = 0; x < Size.x; x++)
             {
                 for (int y = 0; y < Size.y; y++)
@@ -80,7 +151,7 @@ namespace Scripts
                         position.SetItem(item);
                         item.SetPosition(position);
                         prePositionedItems.Add(item);
-                        for (int i = 0; i < (int)Orientation.Down; i++)
+                        for (int i = 0; i < (int) Orientation.Down; i++)
                         {
                             item.RotateRight();
                         }
@@ -91,7 +162,7 @@ namespace Scripts
                             item.Hide();
                         }
                     }
-                    
+
                     if (y == 0)
                     {
                         var item = Instantiate(GameSystem.Config.ItemSet.GetItemPrefab(level.Blocker));
@@ -99,7 +170,7 @@ namespace Scripts
                         position.SetItem(item);
                         item.SetPosition(position);
                         prePositionedItems.Add(item);
-                        for (int i = 0; i < (int)Orientation.Right; i++)
+                        for (int i = 0; i < (int) Orientation.Right; i++)
                         {
                             item.RotateRight();
                         }
@@ -110,7 +181,7 @@ namespace Scripts
                             item.Hide();
                         }
                     }
-                    
+
                     if (x == Size.x - 1)
                     {
                         var item = Instantiate(GameSystem.Config.ItemSet.GetItemPrefab(level.Blocker));
@@ -119,7 +190,7 @@ namespace Scripts
                         item.SetPosition(position);
                         item.HideModel();
                         prePositionedItems.Add(item);
-                        for (int i = 0; i < (int)Orientation.Up; i++)
+                        for (int i = 0; i < (int) Orientation.Up; i++)
                         {
                             item.RotateRight();
                         }
@@ -130,7 +201,7 @@ namespace Scripts
                             item.Hide();
                         }
                     }
-                    
+
                     if (y == Size.y - 1)
                     {
                         var item = Instantiate(GameSystem.Config.ItemSet.GetItemPrefab(level.Blocker));
@@ -139,7 +210,7 @@ namespace Scripts
                         item.SetPosition(position);
                         item.HideModel();
                         prePositionedItems.Add(item);
-                        for (int i = 0; i < (int)Orientation.Left; i++)
+                        for (int i = 0; i < (int) Orientation.Left; i++)
                         {
                             item.RotateRight();
                         }

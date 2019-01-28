@@ -102,27 +102,11 @@ namespace Scripts
                 if (!placeSuccess)
                 {
                     PlaceItemAtPoint(raycast.hit.point);
+                    if (Input.GetMouseButtonDown(0))
+                    {
+                        SoundPlayer.Instance.PlaySound(GameSystem.Config.ErrorSound);
+                    }
                 }
-            }
-
-            var hit = raycast.hit;
-            
-            var rigidbody = hit.rigidbody;
-
-            if (rigidbody == null)
-            {
-                Debug.Log("hit: " + hit.transform.name);
-                return;
-            }
-            
-            var room = rigidbody.GetComponent<Room>();
-            if (room != null)
-            {
-                if (Input.GetMouseButtonDown(0))
-                {
-                    SoundPlayer.Instance.PlaySound(GameSystem.Config.ErrorSound);
-                }
-                PlaceItemAtPoint(raycast.hit.point);
             }
         }
 

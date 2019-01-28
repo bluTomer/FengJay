@@ -679,7 +679,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: FENG JAY!
+  m_Text: JAY!
 --- !u!114 &114023628369949952
 MonoBehaviour:
   m_ObjectHideFlags: 1

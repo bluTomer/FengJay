@@ -99,7 +99,7 @@ namespace Scripts.Game
 
         public void LoadLevel(Level level)
         {
-            room.SetupNewRoom(level);
+            room.SetupNewRoom(level, CurrentLevelIndex);
             
             foreach (var rule in level.RulesToAdd)
             {
@@ -149,6 +149,8 @@ namespace Scripts.Game
                 
                 SoundPlayer.Instance.PlaySound(Config.LevelSuccessSound);
 
+                CurrentLevelIndex++;
+
                 if (CurrentLevelIndex == levelSet.Levels.Count)
                 {
                     hud.OnWinGame();
@@ -157,7 +159,6 @@ namespace Scripts.Game
                 {
                     hud.SetJayText(true, 4, delegate
                     {
-                        CurrentLevelIndex++;
                         StartLevel(CurrentLevelIndex);
                     }, "NICE VIBES!");
                 }

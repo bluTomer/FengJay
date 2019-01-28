@@ -7,6 +7,8 @@ namespace Scripts
 	{
 		public Vector2Int Position;
 		public Item Item;
+		public GameObject Tile;
+		public GameObject HiddenTile;
 
 		public bool IsTaken
 		{
@@ -16,6 +18,19 @@ namespace Scripts
 		public void SetItem(Item item)
 		{
 			Item = item;
+		}
+
+		public void SwitchTile()
+		{
+			if (Tile != null)
+			{
+				Tile.SetActive(false);
+			}
+
+			if (HiddenTile != null)
+			{
+				HiddenTile.SetActive(true);
+			}
 		}
 
 	}
